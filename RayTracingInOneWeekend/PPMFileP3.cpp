@@ -2,10 +2,10 @@
 #include <fstream>
 const std::string PPMFileP3::LF = "\n";
 
-void PPMFileP3::OutputAsFile()
+void PPMFileP3::OutputAsFile(const std::string& filename)
 {
     std::ofstream outFile;
-    outFile.open("1.ppm", std::ios::out | std::ios::trunc);
+    outFile.open(filename, std::ios::out | std::ios::trunc);
     outFile << myBuffer;
     outFile.close();
 }

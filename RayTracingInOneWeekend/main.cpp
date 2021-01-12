@@ -13,6 +13,6 @@ int main()
         }
         picture.AddLFToBuffer();
     }
-    picture.OutputAsFile();
+    picture.OutputAsFile("1.ppm");
     return 0;
 }

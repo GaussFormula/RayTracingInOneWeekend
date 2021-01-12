@@ -36,7 +36,7 @@ public:
         myBuffer += LF;
     }
 
-    void OutputAsFile();
+    void OutputAsFile(const std::string& filename);
 
 public:
     static const std::string LF;
