@@ -1,5 +1,5 @@
 #pragma once
-#include <assert.h>
+
 class vec3
 {
 public:
@@ -10,14 +10,53 @@ public:
         data[2] = n2;
     }
 
-    float& operator[](int index)
+    vec3(const vec3& v)
     {
-        assert(index >= 0 && index <= 2);
-        return data[index];
+        data[0] = v[0];
+        data[1] = v[1];
+        data[2] = v[2];
     }
 
+    // operator overload
+    void operator=(const vec3& rhs);
+
+    float& operator[](int index);
+
+    float operator[](int index) const;
+
+    vec3 operator+(const vec3& rhs);
+
+    vec3 operator*(const float& rhs);
+
+    float operator*(const vec3& rhs);
+
+    vec3 operator-(const vec3& rhs);
+
+    void operator*=(const float& rhs);
+
+    inline float X()const
+    {
+        return data[0];
+    }
+
+    inline float Y()const
+    {
+        return data[1];
+    }
+
+    inline float Z()const
+    {
+        return data[2];
+    }
     
+    float Length()const;
+    
+    vec3 Normalized()const;
+
+    void Normalized();
 
 private:
     float data[3] = {};
 };
+
+vec3 operator*(const float& a, const vec3& rhs);

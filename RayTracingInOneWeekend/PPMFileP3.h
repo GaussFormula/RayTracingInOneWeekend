@@ -21,12 +21,12 @@ public:
 
     virtual ~PPMFileP3(){}
 
-    void AddOnePixelToBuffer(vec3& color)
+    void AddOnePixelToBuffer(const vec3& color)
     {
         std::string colorStr;
         for (int i = 0; i < 3; ++i)
         {
-            colorStr += std::to_string(color[i] * 256.0f) + std::string(" ");
+            colorStr += std::to_string(color[i]) + std::string(" ");
         }
         myBuffer += colorStr;
     }

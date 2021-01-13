@@ -21,6 +21,12 @@
     <ClCompile Include="PPMFileP3.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="vec3.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HelperFunctions.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PPMFile.h">
@@ -30,6 +36,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="vec3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HelperFunctions.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
