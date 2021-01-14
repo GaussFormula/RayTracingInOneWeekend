@@ -1,10 +1,8 @@
 #include "PPMFileP3.h"
-#include "Ray.h"
 #include "HelperFunctions.h"
-#include "Sphere.h"
 int main()
 {
-    /*const int width = 500;
+    const int width = 500;
     const int height = width;
     PPMFileP3 picture(width, height);
 
@@ -26,10 +24,6 @@ int main()
         }
         picture.AddLFToBuffer();
     }
-    picture.OutputAsFile("1.ppm");*/
-
-    Sphere sphere(vec3(0.0f, 0.0f, 0.0f), 1.0f);
-    Ray ray(vec3(-1.0f, 3.0f, 0.0f), vec3(1.0f, -1.0f, 0.0f));
-    std::cout << sphere.BeHitByRay(ray) << "\n";
+    picture.OutputAsFile("1.ppm");
     return 0;
 }

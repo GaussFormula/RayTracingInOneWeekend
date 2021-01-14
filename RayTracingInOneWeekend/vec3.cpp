@@ -37,6 +37,11 @@ vec3 operator*(const float& lhs, const vec3& rhs)
     return vec3(rhs[0] * lhs, rhs[1] * lhs, rhs[2] * lhs);
 }
 
+vec3 operator+(const vec3& a, const vec3& b)
+{
+    return vec3(a[0] + b[0], a[1] + b[1], a[2] + b[2]);
+}
+
 float vec3::operator*(const vec3& rhs)
 {
     float sum = 0.0f;

@@ -1,5 +1,7 @@
 #include "Sphere.h"
 #include <cmath>
+#include "HitDetection.h"
+
 bool Sphere::BeHitByRay(const Ray& ray)const
 {
     float B = ray.GetDirection() * (ray.GetOrigin() - myOrigin) * 2;
@@ -37,5 +39,24 @@ bool Sphere::BeHitByRay(const Ray& ray)const
     {
         return false;
     }
+}
 
+float Sphere::BeHitByRay_V2(const Ray& ray)const
+{
+    HitDetection detetion(*this, ray);
+    if (detetion.GetDiscriminant() >= 0.0f)
+    {
+        if (detetion.GetRoot1() > 0.0f)
+        {
+            return detetion.GetRoot1();
+        }
+        else
+        {
+            return -1.0f;
+        }
+    }
+    else
+    {
+        return -1.0f;
+    }
 }

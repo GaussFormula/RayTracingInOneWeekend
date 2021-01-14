@@ -22,6 +22,8 @@ public:
 
     bool BeHitByRay(const Ray& ray)const;
 
+    float BeHitByRay_V2(const Ray& ray)const;
+
 private:
 
     float myRadius;

@@ -19,7 +19,7 @@ public:
         return myDirection;
     }
 
-    vec3 PointAtParameter(const float& t)
+    vec3 PointAtParameter(const float& t)const
     {
         return myOrigin + (t * myDirection);
     }

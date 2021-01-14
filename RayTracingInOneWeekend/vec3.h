@@ -60,3 +60,5 @@ private:
 };
 
 vec3 operator*(const float& a, const vec3& rhs);
+
+vec3 operator+(const vec3& a, const vec3& b);
