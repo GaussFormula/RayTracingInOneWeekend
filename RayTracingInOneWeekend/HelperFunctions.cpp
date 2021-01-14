@@ -1,6 +1,6 @@
 #include "HelperFunctions.h"
 
-vec3 RayColor(const ray& r)
+vec3 RayColor(const Ray& r)
 {
     vec3 unitDirection = r.GetDirection();
     unitDirection.Normalized();

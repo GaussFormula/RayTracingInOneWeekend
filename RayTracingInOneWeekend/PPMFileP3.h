@@ -26,7 +26,7 @@ public:
         std::string colorStr;
         for (int i = 0; i < 3; ++i)
         {
-            colorStr += std::to_string(color[i]) + std::string(" ");
+            colorStr += std::to_string((int)color[i]) + std::string(" ");
         }
         myBuffer += colorStr;
     }
