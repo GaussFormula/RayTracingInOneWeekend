@@ -1,6 +1,8 @@
-#include "Sphere.h"
 #include <cmath>
+
+#include "Sphere.h"
 #include "HitDetection.h"
+
 
 bool Sphere::BeHitByRay(const Ray& ray)const
 {
@@ -58,5 +60,37 @@ float Sphere::BeHitByRay_V2(const Ray& ray)const
     else
     {
         return -1.0f;
+    }
+}
+
+bool Sphere::Hit(const Ray& ray, const float& t_min, const float& t_max, HitRecord& hitRecord)const
+{
+    HitDetection detetion(*this, ray);
+    if (detetion.GetDiscriminant() >= 0.0f)
+    {
+        float t = detetion.GetRoot1();
+        if (t<t_max && t>t_min)
+        {
+            hitRecord.t = t;
+            hitRecord.point = ray.PointAtParameter(t);
+            vec3 temp = hitRecord.point - myOrigin;
+            temp.Normalized();
+            hitRecord.normal = temp;
+            return true;
+        }
+        t = detetion.GetRoot2();
+        if (t<t_max && t>t_min)
+        {
+            hitRecord.t = t;
+            hitRecord.point = ray.PointAtParameter(t);
+            vec3 temp = hitRecord.point - myOrigin;
+            temp.Normalized();
+            hitRecord.normal = temp;
+            return true;
+        }
+    }
+    else
+    {
+        return false;
     }
 }

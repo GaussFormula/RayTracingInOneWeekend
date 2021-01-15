@@ -17,6 +17,13 @@ public:
         data[2] = v[2];
     }
 
+    vec3()
+    {
+        data[0] = 0.0f;
+        data[1] = 0.0f;
+        data[2] = 0.0f;
+    }
+
     // operator overload
     void operator=(const vec3& rhs);
 

@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="HelperFunctions.cpp" />
+    <ClCompile Include="HitableList.cpp" />
     <ClCompile Include="HitDetection.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PPMFileP3.cpp" />
@@ -148,6 +149,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HelperFunctions.h" />
+    <ClInclude Include="Hitable.h" />
+    <ClInclude Include="HitableList.h" />
     <ClInclude Include="HitDetection.h" />
     <ClInclude Include="PPMFile.h" />
     <ClInclude Include="PPMFileP3.h" />

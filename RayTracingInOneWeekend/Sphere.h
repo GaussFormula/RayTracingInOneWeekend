@@ -1,8 +1,7 @@
 #pragma once
 
-#include "vec3.h"
-#include "Ray.h"
-class Sphere
+#include "Hitable.h"
+class Sphere :public Hitable
 {
 public:
     Sphere(const vec3& origin,const float& radius)
@@ -23,6 +22,8 @@ public:
     bool BeHitByRay(const Ray& ray)const;
 
     float BeHitByRay_V2(const Ray& ray)const;
+
+    virtual bool Hit(const Ray& ray, const float& t_min, const float& t_max, HitRecord& hitRecord)const;
 
 private:
 
