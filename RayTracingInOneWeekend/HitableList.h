@@ -2,16 +2,26 @@
 #include "Hitable.h"
 #include <vector>
 #include <memory>
-class HitableList :public Hitable
+#include <iostream>
+class HitableList
 {
 public:
     HitableList(){}
-    HitableList(const std::vector<std::unique_ptr<Hitable>>& list)
-        :myList(list)
-    {}
 
-    virtual bool Hit(const Ray& ray, const float& t_min, const float& t_max, HitRecord& hitRecord)const;
+    void push_back(const std::shared_ptr<Hitable>& object);
+
+    vec3 Hit(const Ray& ray, const float& t_min, const float& t_max)const;
+
+    size_t size()const
+    {
+        return myList.size();
+    }
+
+    void ReferenceCount()const
+    {
+        std::cout << myList[1].use_count();
+    }
 
 private:
-    std::vector<std::unique_ptr<Hitable>> myList;
+    std::vector<std::shared_ptr<Hitable>> myList;
 };

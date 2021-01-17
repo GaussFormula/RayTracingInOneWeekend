@@ -88,6 +88,7 @@ bool Sphere::Hit(const Ray& ray, const float& t_min, const float& t_max, HitReco
             hitRecord.normal = temp;
             return true;
         }
+        return false;
     }
     else
     {

@@ -9,6 +9,12 @@ public:
         ,myDirection(direction)
     {}
 
+    Ray(const Ray& ray)
+    {
+        myDirection = ray.GetDirection();
+        myOrigin = ray.GetOrigin();
+    }
+
     vec3 GetOrigin()const
     {
         return myOrigin;

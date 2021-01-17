@@ -27,6 +27,14 @@ vec3 vec3::operator+(const vec3& rhs)
     return vec3(data[0] + rhs.X(), data[1] + rhs.Y(), data[2] + rhs.Z());
 }
 
+void vec3::operator+=(const vec3& rhs)
+{
+    for (int i = 0; i < 3; ++i)
+    {
+        data[i] += rhs[i];
+    }
+}
+
 vec3 vec3::operator*(const float& rhs)
 {
     return vec3(data[0] * rhs, data[1] * rhs, data[2] * rhs);

@@ -3,18 +3,18 @@
 
 static const Sphere sphere = Sphere(vec3(0.0f, 0.0f, -1.0f), 0.5f);
 
-vec3 RayColor(const Ray& r)
+vec3 RayColor(const Ray& r, const std::unique_ptr<Hitable>& object)
 {
-    float t = sphere.BeHitByRay_V2(r);
-    if (t > 0.0f)
+    HitRecord record;
+    if (object->Hit(r, 0.0f, std::numeric_limits<float>::max(), record))
     {
-        vec3 N = r.PointAtParameter(t) - sphere.GetOrigin();
-        N.Normalized();
-        return 0.5f * (N + vec3(1.0f, 1.0f, 1.0f));
+        return 0.5f * (record.normal + vec3(1.0f, 1.0f, 1.0f));
     }
-    vec3 unitDirection = r.GetDirection();
-    unitDirection.Normalized();
-
-    t = 0.5f * (unitDirection.Y() + 1.0f);
-    return (1.0f - t) * vec3(1.0f, 1.0f, 1.0f) + t * vec3(0.5f, 0.7f, 1.0f);
+    else
+    {
+        vec3 unit_direction = r.GetDirection();
+        unit_direction.Normalized();
+        float t = 0.5f * (unit_direction.Y() + 1.0f);
+        return (1.0f - t) * vec3(1.0f, 1.0f, 1.0f) + t * vec3(0.5f, 0.7f, 1.0f);
+    }
 }

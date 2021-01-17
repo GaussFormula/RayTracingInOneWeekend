@@ -41,6 +41,8 @@ public:
 
     void operator*=(const float& rhs);
 
+    void operator+=(const vec3& rhs);
+
     inline float X()const
     {
         return data[0];

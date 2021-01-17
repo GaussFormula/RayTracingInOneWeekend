@@ -25,6 +25,8 @@ public:
 
     virtual bool Hit(const Ray& ray, const float& t_min, const float& t_max, HitRecord& hitRecord)const;
 
+    virtual ~Sphere(){}
+
 private:
 
     float myRadius;
