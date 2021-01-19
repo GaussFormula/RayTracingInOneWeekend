@@ -18,6 +18,10 @@ void Rendering(int startRowNumber,
     const HitableList& objectList,
     const Camera& camera)
 {
+    if (endRowNumber > totalHeight)
+    {
+        endRowNumber = totalHeight;
+    }
     for (int j = endRowNumber - 1; j >= startRowNumber; --j)
     {
         for (int i = startColumnNumber; i < endColumnNumber; ++i)
@@ -46,7 +50,7 @@ void Rendering(int startRowNumber,
 
 int main()
 {
-    const int width = 8000;
+    const int width = 1000;
     const int height = width;
     PPMFileP3 picture(width, height);
 
