@@ -18,3 +18,14 @@ vec3 RayColor(const Ray& r, const std::unique_ptr<Hitable>& object)
         return (1.0f - t) * vec3(1.0f, 1.0f, 1.0f) + t * vec3(0.5f, 0.7f, 1.0f);
     }
 }
+
+vec3 Reflection(const HitRecord& hitRecord)
+{
+    vec3 result;
+    do 
+    {
+        result = 2 * vec3(rand() * 1.0f / RAND_MAX, rand() * 1.0f / RAND_MAX, rand() * 1.0f / RAND_MAX);
+        result = result - vec3(1.0f, 1.0f, 1.0f);
+    } while (result* hitRecord.normal < 0);
+    return result;
+}

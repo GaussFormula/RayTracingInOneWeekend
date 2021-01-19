@@ -32,7 +32,7 @@ void Rendering(int startRowNumber,
                 float u = float(i + rand() * 1.0f / RAND_MAX) / (float)totalWidth;
                 float v = float(j + rand() * 1.0f / RAND_MAX) / (float)totalHeight;
                 Ray r(camera.GetRay(u, v));
-                col += objectList.Hit(r, 0.0f, std::numeric_limits<float>::max());
+                col += objectList.Hit(r, 0.0f, std::numeric_limits<float>::max(), 5);
             }
             col *= 255.99f / 4.0f;
 

@@ -5,7 +5,7 @@ class Camera
 public:
     Camera()
     {
-        myLowerLeftPoint = vec3(0.0f, -2.0f, 0.3f);
+        myLowerLeftPoint = vec3(-1.2f, -2.0f, 0.0f);
         myHorizontalAxis = vec3(2.8f, 0.0f, -2.8f);
         myVerticalAxis = vec3(0.0f, 4.0f, 0.0f);
         myOrigin = vec3(1.0f, 0.0f, 1.0f);

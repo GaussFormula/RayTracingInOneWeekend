@@ -1,7 +1,15 @@
 #include "HitableList.h"
+#include "HelperFunctions.h"
 
-vec3 HitableList::Hit(const Ray& ray, const float& t_min, const float& t_max)const
+vec3 HitableList::Hit(const Ray& ray, const float& t_min, const float& t_max,const int& reflectionLimit)const
 {
+    if (reflectionLimit <= 0)
+    {
+        vec3 unit_direction = ray.GetDirection();
+        unit_direction.Normalized();
+        float t = 0.5f * (unit_direction.Y() + 1.0f);
+        return (1.0f - t) * vec3(1.0f, 1.0f, 1.0f) + t * vec3(0.5f, 0.7f, 1.0f);
+    }
     HitRecord temp_rec;
     bool hit_anything = false;
     double cloest_so_far = t_max;
@@ -17,7 +25,8 @@ vec3 HitableList::Hit(const Ray& ray, const float& t_min, const float& t_max)con
     }
     if (hit_anything)
     {
-        return 0.5f * (temp_rec.normal + vec3(1.0f, 1.0f, 1.0f));
+        Ray reflection(temp_rec.point, Reflection(temp_rec));
+        return 0.5f * Hit(reflection, 0, std::numeric_limits<float>::max(), reflectionLimit - 1);
     }
     else
     {
