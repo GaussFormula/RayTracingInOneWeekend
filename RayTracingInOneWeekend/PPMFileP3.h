@@ -31,6 +31,11 @@ public:
         myBuffer += colorStr;
     }
 
+    void AddPixelsToBuffer(const std::string& pixels)
+    {
+        myBuffer += pixels;
+    }
+
     void AddLFToBuffer()
     {
         myBuffer += LF;

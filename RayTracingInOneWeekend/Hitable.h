@@ -3,7 +3,7 @@
 
 struct HitRecord
 {
-    float t;
+    float t = 0.0f;
     vec3 point;
     vec3 normal;
 };
