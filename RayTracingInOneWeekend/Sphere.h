@@ -1,12 +1,15 @@
 #pragma once
 
 #include "Hitable.h"
+#include <memory>
+
 class Sphere :public Hitable
 {
 public:
-    Sphere(const vec3& origin,const float& radius)
+    Sphere(const vec3& origin,const float& radius,const std::shared_ptr<Material>& material)
         :myOrigin(origin)
         ,myRadius(radius)
+        ,myMaterial(material)
     {}
 
     float GetRadius()const
@@ -19,6 +22,11 @@ public:
         return myOrigin;
     }
 
+    std::shared_ptr<Material> GetMaterial()const
+    {
+        return myMaterial;
+    }
+
     bool BeHitByRay(const Ray& ray)const;
 
     float BeHitByRay_V2(const Ray& ray)const;
@@ -27,8 +35,12 @@ public:
 
     virtual ~Sphere(){}
 
+public:
+
+
 private:
 
-    float myRadius;
-    vec3 myOrigin;
+    float                       myRadius;
+    vec3                        myOrigin;
+    std::shared_ptr<Material>   myMaterial;
 };

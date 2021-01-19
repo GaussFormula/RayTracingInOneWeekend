@@ -145,6 +145,7 @@
     <ClCompile Include="HitDetection.cpp" />
     <ClCompile Include="Lambertian.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Metal.cpp" />
     <ClCompile Include="PPMFileP3.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="vec3.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="HitDetection.h" />
     <ClInclude Include="Lambertian.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Metal.h" />
     <ClInclude Include="PPMFile.h" />
     <ClInclude Include="PPMFileP3.h" />
     <ClInclude Include="Ray.h" />

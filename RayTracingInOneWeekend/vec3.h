@@ -33,11 +33,11 @@ public:
 
     vec3 operator+(const vec3& rhs);
 
-    vec3 operator*(const float& rhs);
+    vec3 operator*(const float& rhs)const;
 
-    float operator*(const vec3& rhs);
+    float operator*(const vec3& rhs)const;
 
-    vec3 operator-(const vec3& rhs);
+    vec3 operator-(const vec3& rhs)const;
 
     void operator*=(const float& rhs);
 

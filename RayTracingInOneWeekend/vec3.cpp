@@ -35,7 +35,7 @@ void vec3::operator+=(const vec3& rhs)
     }
 }
 
-vec3 vec3::operator*(const float& rhs)
+vec3 vec3::operator*(const float& rhs)const
 {
     return vec3(data[0] * rhs, data[1] * rhs, data[2] * rhs);
 }
@@ -50,7 +50,7 @@ vec3 operator+(const vec3& a, const vec3& b)
     return vec3(a[0] + b[0], a[1] + b[1], a[2] + b[2]);
 }
 
-float vec3::operator*(const vec3& rhs)
+float vec3::operator*(const vec3& rhs)const
 {
     float sum = 0.0f;
     for (int i = 0; i < 3; ++i)
@@ -60,7 +60,7 @@ float vec3::operator*(const vec3& rhs)
     return sum;
 }
 
-vec3 vec3::operator-(const vec3& rhs)
+vec3 vec3::operator-(const vec3& rhs)const
 {
     return vec3(data[0] - rhs.X(), data[1] - rhs.Y(), data[2] - rhs.Z());
 }

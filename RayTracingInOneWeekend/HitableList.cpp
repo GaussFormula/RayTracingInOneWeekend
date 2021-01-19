@@ -1,18 +1,16 @@
 #include "HitableList.h"
 #include "HelperFunctions.h"
+#include "Material.h"
 
-vec3 HitableList::Hit(const Ray& ray, const float& t_min, const float& t_max,const int& RandomReflectionLimit)const
+vec3 HitableList::Hit(const Ray& ray, const float& t_min, const float& t_max,const int& reflectionLimit)const
 {
-    if (RandomReflectionLimit <= 0)
+    if (reflectionLimit <= 0)
     {
-        vec3 unit_direction = ray.GetDirection();
-        unit_direction.Normalized();
-        float t = 0.5f * (unit_direction.Y() + 1.0f);
-        return (1.0f - t) * vec3(1.0f, 1.0f, 1.0f) + t * vec3(0.5f, 0.7f, 1.0f);
+        return vec3();
     }
     HitRecord temp_rec;
     bool hit_anything = false;
-    double cloest_so_far = t_max;
+    float cloest_so_far = t_max;
     int closest_index = 0;
     for (int i = 0; i < myList.size(); ++i)
     {
@@ -25,8 +23,17 @@ vec3 HitableList::Hit(const Ray& ray, const float& t_min, const float& t_max,con
     }
     if (hit_anything)
     {
-        Ray RandomReflection(temp_rec.point, RandomReflection(temp_rec));
-        return 0.5f * Hit(RandomReflection, 0, std::numeric_limits<float>::max(), RandomReflectionLimit - 1);
+        Ray scattered;
+        vec3 attenuation;
+        if (temp_rec.material->Scatter(ray, temp_rec, attenuation, scattered))
+        {
+            vec3 result = Hit(scattered, t_min, std::numeric_limits<float>::max(), reflectionLimit - 1);
+            return vec3(attenuation[0] *result[0],attenuation[1]*result[1],attenuation[2]*result[2]);
+        }
+        else
+        {
+            return vec3();
+        }
     }
     else
     {

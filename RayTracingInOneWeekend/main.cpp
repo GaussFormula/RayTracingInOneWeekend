@@ -2,11 +2,14 @@
 #include "HitableList.h"
 #include "Sphere.h"
 #include "Camera.h"
+#include "Metal.h"
+#include "Lambertian.h"
 
 #include <ctime>
 #include <cstdlib>
 
 #include <thread>
+
 
 void Rendering(int startRowNumber, 
     int endRowNumber, 
@@ -32,7 +35,7 @@ void Rendering(int startRowNumber,
                 float u = float(i + rand() * 1.0f / RAND_MAX) / (float)totalWidth;
                 float v = float(j + rand() * 1.0f / RAND_MAX) / (float)totalHeight;
                 Ray r(camera.GetRay(u, v));
-                col += objectList.Hit(r, 0.0f, std::numeric_limits<float>::max(), 5);
+                col += objectList.Hit(r, 0.001f, std::numeric_limits<float>::max(), 50);
             }
             col *= 255.99f / 4.0f;
 
@@ -58,8 +61,13 @@ int main()
 
     HitableList objectList;
 
-    objectList.push_back(std::make_shared<Sphere>(vec3(0.0f, 0.0f, -1.0f), 0.5f));
-    objectList.push_back(std::make_shared<Sphere>(vec3(0.0f, -100.5f, -1.0f), 100.0f));
+    std::shared_ptr<Metal> metal = std::make_shared<Metal>(vec3(0.8f, 0.8f, 0.8f));
+    std::shared_ptr<Lambertian> lambertian = std::make_shared<Lambertian>(vec3(0.8f, 0.8f, 0.0f));
+
+    objectList.push_back(std::make_shared<Sphere>(vec3(0.0f, 0.0f, -1.0f), 0.5f,
+        metal));
+    objectList.push_back(std::make_shared<Sphere>(vec3(0.0f, -100.5f, -1.0f), 100.0f,
+        lambertian));
 
     objectList.ReferenceCount();
 

@@ -1,7 +1,7 @@
 #include "HelperFunctions.h"
 #include "Sphere.h"
 
-static const Sphere sphere = Sphere(vec3(0.0f, 0.0f, -1.0f), 0.5f);
+//static const Sphere sphere = Sphere(vec3(0.0f, 0.0f, -1.0f), 0.5f);
 
 vec3 RayColor(const Ray& r, const std::unique_ptr<Hitable>& object)
 {
@@ -28,4 +28,9 @@ vec3 RandomReflection(const HitRecord& hitRecord)
         result = result - vec3(1.0f, 1.0f, 1.0f);
     } while (result* hitRecord.normal < 0);
     return result;
+}
+
+vec3 Reflection(const vec3& v, const vec3& normal)
+{
+    return v - 2.0f * (v * normal) * normal;
 }

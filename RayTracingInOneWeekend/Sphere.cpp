@@ -76,6 +76,7 @@ bool Sphere::Hit(const Ray& ray, const float& t_min, const float& t_max, HitReco
             vec3 temp = hitRecord.point - myOrigin;
             temp.Normalized();
             hitRecord.normal = temp;
+            hitRecord.material = myMaterial;
             return true;
         }
         t = detetion.GetRoot2();
@@ -86,6 +87,7 @@ bool Sphere::Hit(const Ray& ray, const float& t_min, const float& t_max, HitReco
             vec3 temp = hitRecord.point - myOrigin;
             temp.Normalized();
             hitRecord.normal = temp;
+            hitRecord.material = myMaterial;
             return true;
         }
         return false;

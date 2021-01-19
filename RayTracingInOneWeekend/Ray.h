@@ -9,6 +9,11 @@ public:
         ,myDirection(direction)
     {}
 
+    Ray()
+    {
+        
+    }
+
     Ray(const Ray& ray)
     {
         myDirection = ray.GetDirection();
