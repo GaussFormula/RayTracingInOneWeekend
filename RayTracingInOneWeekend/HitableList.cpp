@@ -1,9 +1,9 @@
 #include "HitableList.h"
 #include "HelperFunctions.h"
 
-vec3 HitableList::Hit(const Ray& ray, const float& t_min, const float& t_max,const int& reflectionLimit)const
+vec3 HitableList::Hit(const Ray& ray, const float& t_min, const float& t_max,const int& RandomReflectionLimit)const
 {
-    if (reflectionLimit <= 0)
+    if (RandomReflectionLimit <= 0)
     {
         vec3 unit_direction = ray.GetDirection();
         unit_direction.Normalized();
@@ -25,8 +25,8 @@ vec3 HitableList::Hit(const Ray& ray, const float& t_min, const float& t_max,con
     }
     if (hit_anything)
     {
-        Ray reflection(temp_rec.point, Reflection(temp_rec));
-        return 0.5f * Hit(reflection, 0, std::numeric_limits<float>::max(), reflectionLimit - 1);
+        Ray RandomReflection(temp_rec.point, RandomReflection(temp_rec));
+        return 0.5f * Hit(RandomReflection, 0, std::numeric_limits<float>::max(), RandomReflectionLimit - 1);
     }
     else
     {

@@ -1,11 +1,15 @@
 #pragma once
 #include "Ray.h"
+#include <memory>
+
+class Material;
 
 struct HitRecord
 {
     float t = 0.0f;
     vec3 point;
     vec3 normal;
+    std::shared_ptr<Material> material;
 };
 
 class Hitable
