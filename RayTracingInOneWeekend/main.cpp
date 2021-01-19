@@ -27,14 +27,14 @@ void Rendering(int startRowNumber,
         for (int i = startColumnNumber; i < endColumnNumber; ++i)
         {
             vec3 col(0.0f, 0.0f, 0.0f);
-            for (int s = 0; s < 5; ++s)
+            for (int s = 0; s < 4; ++s)
             {
                 float u = float(i + rand() * 1.0f / RAND_MAX) / (float)totalWidth;
                 float v = float(j + rand() * 1.0f / RAND_MAX) / (float)totalHeight;
                 Ray r(camera.GetRay(u, v));
                 col += objectList.Hit(r, 0.0f, std::numeric_limits<float>::max());
             }
-            col *= 255.99f / 5.0f;
+            col *= 255.99f / 4.0f;
 
             //col *= 255.99f;
             std::string colorStr;
