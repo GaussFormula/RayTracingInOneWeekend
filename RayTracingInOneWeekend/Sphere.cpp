@@ -73,8 +73,8 @@ bool Sphere::Hit(const Ray& ray, const float& t_min, const float& t_max, HitReco
         {
             hitRecord.t = t;
             hitRecord.point = ray.PointAtParameter(t);
-            vec3 temp = hitRecord.point - myOrigin;
-            temp.Normalized();
+            vec3 temp = (hitRecord.point - myOrigin) * (1.0f / myRadius);
+            //temp.Normalized();
             hitRecord.normal = temp;
             hitRecord.material = myMaterial;
             return true;
@@ -84,8 +84,8 @@ bool Sphere::Hit(const Ray& ray, const float& t_min, const float& t_max, HitReco
         {
             hitRecord.t = t;
             hitRecord.point = ray.PointAtParameter(t);
-            vec3 temp = hitRecord.point - myOrigin;
-            temp.Normalized();
+            vec3 temp = (hitRecord.point - myOrigin) * (1.0f / myRadius);
+            //temp.Normalized();
             hitRecord.normal = temp;
             hitRecord.material = myMaterial;
             return true;

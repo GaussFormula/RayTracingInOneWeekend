@@ -5,10 +5,10 @@ class Camera
 public:
     Camera()
     {
-        myLowerLeftPoint = vec3(-1.2f, -2.0f, 0.0f);
-        myHorizontalAxis = vec3(2.8f, 0.0f, -2.8f);
+        myLowerLeftPoint = vec3(-2.0f, -2.0f, 0.0f);
+        myHorizontalAxis = vec3(4.0f, 0.0f, 0.0f);
         myVerticalAxis = vec3(0.0f, 4.0f, 0.0f);
-        myOrigin = vec3(1.0f, 0.0f, 1.0f);
+        myOrigin = vec3(0.0f, 0.0f, 1.0f);
     }
 
     Camera(const vec3& origin,const vec3& lowerLeftPoint,const vec3& horizontalAxis,const vec3& verticalAxis)

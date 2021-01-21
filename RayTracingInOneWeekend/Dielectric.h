@@ -4,6 +4,7 @@
 
 class Dielectric :public Material
 {
+public:
     Dielectric(const float& ref_index)
         :myRefIndex(ref_index)
     {}

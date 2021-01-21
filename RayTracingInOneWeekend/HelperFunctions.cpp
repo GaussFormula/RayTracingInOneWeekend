@@ -52,3 +52,10 @@ bool Refraction(const vec3& incident, const vec3& normal, const float& ni_over_n
         return false;
     }
 }
+
+float Schlick(const float& cosine, const float& refraction_index)
+{
+    float r0 = (1.0f - refraction_index) / (1.0f + refraction_index);
+    r0 = r0 * r0;
+    return r0 + (1 - r0) * std::pow((1.0f - cosine), 5.0f);
+}
