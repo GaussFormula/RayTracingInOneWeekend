@@ -1,20 +1,14 @@
 #pragma once
+
 #include "Material.h"
 
-class Metal :public Material
+class Dielectric :public Material
 {
-public:
-    Metal(const vec3&a)
-        :myAlbedo(a)
+    Dielectric(const float& ref_index)
+        :myRefIndex(ref_index)
     {}
 
-    vec3 GetAlbedo()const
-    {
-        return myAlbedo;
-    }
-
     virtual bool Scatter(const Ray& ray, const HitRecord& record, vec3& attenuation, Ray& scattered)const override;
-
 private:
-    vec3 myAlbedo;
+    float myRefIndex;
 };

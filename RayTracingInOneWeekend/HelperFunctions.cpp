@@ -1,5 +1,6 @@
 #include "HelperFunctions.h"
 #include "Sphere.h"
+#include <cmath>
 
 //static const Sphere sphere = Sphere(vec3(0.0f, 0.0f, -1.0f), 0.5f);
 
@@ -33,4 +34,21 @@ vec3 RandomReflection(const HitRecord& hitRecord)
 vec3 Reflection(const vec3& v, const vec3& normal)
 {
     return v - 2.0f * (v * normal) * normal;
+}
+
+bool Refraction(const vec3& incident, const vec3& normal, const float& ni_over_nt, vec3& refracted)
+{
+    vec3 normalized_incident = incident.Normalized();
+    float i_dot_n = normalized_incident * normal;
+    
+    float discriminant = 1.0f - ni_over_nt * ni_over_nt * (1.0f - i_dot_n * i_dot_n);
+    if (discriminant > 0)
+    {
+        refracted = ni_over_nt * (normalized_incident - i_dot_n * normal) - normal * std::sqrt(discriminant);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }

@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Dielectric.cpp" />
     <ClCompile Include="HelperFunctions.cpp" />
     <ClCompile Include="HitableList.cpp" />
     <ClCompile Include="HitDetection.cpp" />
@@ -152,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Dielectric.h" />
     <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="Hitable.h" />
     <ClInclude Include="HitableList.h" />

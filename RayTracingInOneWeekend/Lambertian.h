@@ -13,7 +13,7 @@ public:
         return myAlbedo;
     }
 
-    virtual bool Scatter(const Ray& ray, const HitRecord& record, vec3& attenuation, Ray& scattered)const;
+    virtual bool Scatter(const Ray& ray, const HitRecord& record, vec3& attenuation, Ray& scattered)const override;
 private:
     vec3 myAlbedo;
 };
