@@ -22,13 +22,13 @@ void Rendering(int startRowNumber,
     const HitableList& objectList,
     const Camera& camera)
 {
-    if (endRowNumber > totalHeight)
+    if (endRowNumber >= totalHeight)
     {
-        endRowNumber = totalHeight;
+        endRowNumber = totalHeight - 1;
     }
     const int sample_times = 7;
-    const int bounce_times = 25;
-    for (int j = endRowNumber - 1; j >= startRowNumber; --j)
+    const int bounce_times = 50;
+    for (int j = endRowNumber; j >= startRowNumber; --j)
     {
         for (int i = startColumnNumber; i < endColumnNumber; ++i)
         {
@@ -56,9 +56,9 @@ void Rendering(int startRowNumber,
 
 int main()
 {
-    const int width = 1000;
+    const int width = 2000;
     const int height = width;
-    const int thread_number = 10;
+    const int thread_number = 12;
     PPMFileP3 picture(width, height);
 
     Camera camera;
@@ -68,18 +68,15 @@ int main()
     std::shared_ptr<Metal> metal = std::make_shared<Metal>(vec3(0.8f, 0.8f, 0.8f));
     std::shared_ptr<Lambertian> lambertian = std::make_shared<Lambertian>(vec3(0.8f, 0.8f, 0.0f));
     std::shared_ptr<Lambertian> lambertian2 = std::make_shared<Lambertian>(vec3(0.1f, 0.2f, 0.5f));
-    std::shared_ptr<Dielectric> dielectric = std::make_shared<Dielectric>(1.5f);
+    std::shared_ptr<Dielectric> dielectric = std::make_shared<Dielectric>(1.2f);
     std::shared_ptr<Dielectric> dielectric2 = std::make_shared<Dielectric>(1.51f);
 
-    objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, 0.0f), 0.5f,
-        dielectric));
-    objectList.push_back(std::make_shared<Sphere>(vec3(-0.51f, 0.0f, 0.0f), 0.5f, metal));
-    objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, 0.0f), -0.45f,
-        dielectric));
-    objectList.push_back(std::make_shared<Sphere>(vec3(0.0f, -100.5f, -1.0f), 100.0f,
-        lambertian));
+    objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -0.5f), 0.5f, dielectric));
+    objectList.push_back(std::make_shared<Sphere>(vec3(-0.51f, 0.0f, -0.5f), 0.5f, metal));
+    objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -0.5f), -0.45f, dielectric));
+    objectList.push_back(std::make_shared<Sphere>(vec3(0.0f, -100.5f, -1.0f), 100.0f, lambertian));
 
-    objectList.ReferenceCount();
+    //objectList.ReferenceCount();
 
     srand((unsigned int)time(0));
 
@@ -87,12 +84,17 @@ int main()
     std::vector<std::string> outputBuffer;
     outputBuffer.resize(thread_number);
 
-    for (int i = 0; i < thread_number; ++i)
+    int length = height / thread_number;
+    int real_thread_number = 0;
+
+
+    for (int i = 0,startRow=0,endRow=length; i < thread_number && startRow<height; ++i,++real_thread_number)
     {
+        std::cout << startRow << " " << endRow << "\n";
         threadArray.push_back(
             std::thread(
-                Rendering, i * (height / thread_number),
-                (i + 1) * (height / thread_number),
+                Rendering, startRow ,
+                endRow,
                 0,
                 width,
                 width,
@@ -101,9 +103,11 @@ int main()
                 std::ref(objectList),
                 std::ref(camera)
             ));
+        startRow += length+1;
+        endRow = startRow + length;
     }
 
-    for (int i = 0; i < thread_number; ++i)
+    for (int i = 0; i < real_thread_number; ++i)
     {
         if (threadArray[i].joinable())
         {
@@ -111,13 +115,13 @@ int main()
         }
     }
 
-    for (int i = thread_number - 1; i >= 0; --i)
+    for (int i = real_thread_number-1; i >= 0; --i)
     {
         picture.AddPixelsToBuffer(outputBuffer[i]);
     }
     
     picture.OutputAsFile("1.ppm");
 
-    objectList.ReferenceCount();
+    //objectList.ReferenceCount();
     return 0;
 }

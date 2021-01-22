@@ -34,7 +34,7 @@ bool Dielectric::Scatter(const Ray& ray, const HitRecord& record, vec3& attenuat
         scattered = Ray(record.point, reflected);
         reflect_prob = 1.0f;
     }
-    if ((float)rand()/RAND_MAX < reflect_prob)
+    if (0.995f < reflect_prob)
     {
         scattered = Ray(record.point, reflected);
     }

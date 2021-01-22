@@ -44,7 +44,7 @@ bool Refraction(const vec3& incident, const vec3& normal, const float& ni_over_n
     float discriminant = 1.0f - ni_over_nt * ni_over_nt * (1.0f - i_dot_n * i_dot_n);
     if (discriminant > 0)
     {
-        refracted = ni_over_nt * (normalized_incident - i_dot_n * normal) - normal * std::sqrt(discriminant);
+        refracted = ni_over_nt * (incident - i_dot_n * normal) - normal * std::sqrt(discriminant);
         return true;
     }
     else

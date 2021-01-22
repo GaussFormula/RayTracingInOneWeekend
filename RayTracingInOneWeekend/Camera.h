@@ -1,5 +1,7 @@
 #pragma once
 #include "Ray.h"
+#include <cmath>
+
 class Camera
 {
 public:
@@ -17,6 +19,16 @@ public:
         ,myHorizontalAxis(horizontalAxis)
         ,myVerticalAxis(verticalAxis)
     {}
+
+    Camera(const float& vfov, const float& aspect)
+    {
+        float radians_theta = vfov * 3.1415926f / 180;
+        float half_height = std::tan(radians_theta / 2);
+        float half_width = aspect * half_height;
+        myLowerLeftPoint = vec3(-half_width, -half_height, -1.0f);
+        myHorizontalAxis = vec3(2 * half_width, 0.0f, 0.0f);
+        myVerticalAxis = vec3(0.0f, 2 * half_height, 0.0f);
+    }
 
     vec3 GetOrigin() const
     {
