@@ -22,13 +22,13 @@ void Rendering(int startRowNumber,
     const HitableList& objectList,
     const Camera& camera)
 {
-    if (endRowNumber >= totalHeight)
+    if (endRowNumber > totalHeight)
     {
         endRowNumber = totalHeight - 1;
     }
     const int sample_times = 7;
     const int bounce_times = 50;
-    for (int j = endRowNumber; j >= startRowNumber; --j)
+    for (int j = endRowNumber-1; j >= startRowNumber; --j)
     {
         for (int i = startColumnNumber; i < endColumnNumber; ++i)
         {
@@ -56,7 +56,7 @@ void Rendering(int startRowNumber,
 
 int main()
 {
-    const int width = 2000;
+    const int width = 1500;
     const int height = width;
     const int thread_number = 12;
     PPMFileP3 picture(width, height);
@@ -84,17 +84,16 @@ int main()
     std::vector<std::string> outputBuffer;
     outputBuffer.resize(thread_number);
 
-    int length = height / thread_number;
+    int length = height / thread_number + 1;
     int real_thread_number = 0;
 
 
-    for (int i = 0,startRow=0,endRow=length; i < thread_number && startRow<height; ++i,++real_thread_number)
+    for (int i = 0; i < thread_number && i * length < height; ++i,++real_thread_number)
     {
-        std::cout << startRow << " " << endRow << "\n";
         threadArray.push_back(
             std::thread(
-                Rendering, startRow ,
-                endRow,
+                Rendering, i * length ,
+                (i+1)*length,
                 0,
                 width,
                 width,
@@ -103,8 +102,6 @@ int main()
                 std::ref(objectList),
                 std::ref(camera)
             ));
-        startRow += length+1;
-        endRow = startRow + length;
     }
 
     for (int i = 0; i < real_thread_number; ++i)
