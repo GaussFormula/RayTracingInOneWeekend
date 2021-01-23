@@ -60,7 +60,7 @@ public:
     
     float Length()const;
     
-    vec3 Normalized()const;
+    vec3 GetUnitVector()const;
 
     void Normalized();
 
@@ -71,3 +71,5 @@ private:
 vec3 operator*(const float& a, const vec3& rhs);
 
 vec3 operator+(const vec3& a, const vec3& b);
+
+vec3 cross(const vec3& a, const vec3& b);

@@ -30,6 +30,22 @@ public:
         myVerticalAxis = vec3(0.0f, 2 * half_height, 0.0f);
     }
 
+    Camera(const vec3& lookFrom, const vec3& lookAt, const vec3& vUp, const float& vFov, const float& aspect)
+    {
+        vec3 u, v, w;
+        float radian_theta = vFov * 3.1415926f / 180;
+        float half_height = std::tan(radian_theta / 2);
+        float half_width = aspect * half_height;
+        myOrigin = lookFrom;
+        w = (lookFrom - lookAt).GetUnitVector();
+        u = cross(vUp, w).GetUnitVector();
+        v = cross(w, u);
+        //myLowerLeftPoint = vec3(-half_width, -half_height, -1.0f);
+        myLowerLeftPoint = myOrigin - half_width * u - half_height * v - w;
+        myHorizontalAxis = 2 * half_width * u;
+        myVerticalAxis = 2 * half_height * v;
+    }
+
     vec3 GetOrigin() const
     {
         return myOrigin;

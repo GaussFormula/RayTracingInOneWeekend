@@ -24,7 +24,7 @@ void Rendering(int startRowNumber,
 {
     if (endRowNumber > totalHeight)
     {
-        endRowNumber = totalHeight - 1;
+        endRowNumber = totalHeight;
     }
     const int sample_times = 7;
     const int bounce_times = 50;
@@ -61,7 +61,13 @@ int main()
     const int thread_number = 12;
     PPMFileP3 picture(width, height);
 
-    Camera camera;
+    vec3 lookFrom(0.0f, 0.0f, 1.0f);
+    vec3 lookAt(0.0f, 0.0f, -1.0f);
+    vec3 up(0.0f, 1.0f, 0.0f);
+    float fov = 90.0f;
+    float aspect = (float)width / (float)height;
+
+    Camera camera(lookFrom, lookAt, up, fov, aspect);
 
     HitableList objectList;
 
@@ -102,6 +108,7 @@ int main()
                 std::ref(objectList),
                 std::ref(camera)
             ));
+        //std::cout << i * length << " " << (i + 1) * length << std::endl;
     }
 
     for (int i = 0; i < real_thread_number; ++i)

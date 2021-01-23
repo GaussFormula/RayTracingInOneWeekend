@@ -13,8 +13,7 @@ vec3 RayColor(const Ray& r, const std::unique_ptr<Hitable>& object)
     }
     else
     {
-        vec3 unit_direction = r.GetDirection();
-        unit_direction.Normalized();
+        vec3 unit_direction = r.GetDirection().GetUnitVector();
         float t = 0.5f * (unit_direction.Y() + 1.0f);
         return (1.0f - t) * vec3(1.0f, 1.0f, 1.0f) + t * vec3(0.5f, 0.7f, 1.0f);
     }
@@ -38,7 +37,7 @@ vec3 Reflection(const vec3& v, const vec3& normal)
 
 bool Refraction(const vec3& incident, const vec3& normal, const float& ni_over_nt, vec3& refracted)
 {
-    vec3 normalized_incident = incident.Normalized();
+    vec3 normalized_incident = incident.GetUnitVector();
     float i_dot_n = normalized_incident * normal;
     
     float discriminant = 1.0f - ni_over_nt * ni_over_nt * (1.0f - i_dot_n * i_dot_n);

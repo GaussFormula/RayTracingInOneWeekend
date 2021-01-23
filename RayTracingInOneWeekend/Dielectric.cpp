@@ -9,8 +9,7 @@ bool Dielectric::Scatter(const Ray& ray, const HitRecord& record, vec3& attenuat
     float reflect_prob = 0.0f;
     attenuation = vec3(1.0f, 1.0f, 1.0f);// Glass surface absorbs nothing.
     vec3 refracted;
-    vec3 unit_incident = ray.GetDirection();
-    unit_incident.Normalized();
+    vec3 unit_incident = ray.GetDirection().GetUnitVector();
     float incident_cosine = unit_incident * record.normal;
     if (incident_cosine > 0)
     {

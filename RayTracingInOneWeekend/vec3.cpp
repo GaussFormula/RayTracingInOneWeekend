@@ -76,7 +76,7 @@ float vec3::Length()const
     return std::sqrt(temp * temp);
 }
 
-vec3 vec3::Normalized()const
+vec3 vec3::GetUnitVector()const
 {
     return vec3(*this) * (1.0f / Length());
 }
@@ -88,4 +88,9 @@ void vec3::Normalized()
     {
         data[i] *= 1.0f / length;
     }
+}
+
+vec3 cross(const vec3& a, const vec3& b)
+{
+    return vec3(a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]);
 }

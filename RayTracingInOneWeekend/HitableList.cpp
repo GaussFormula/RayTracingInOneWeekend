@@ -37,8 +37,7 @@ vec3 HitableList::Hit(const Ray& ray, const float& t_min, const float& t_max,con
     }
     else
     {
-        vec3 unit_direction = ray.GetDirection();
-        unit_direction.Normalized();
+        vec3 unit_direction = ray.GetDirection().GetUnitVector();
         float t = 0.5f * (unit_direction.Y() + 1.0f);
         return (1.0f - t) * vec3(1.0f, 1.0f, 1.0f) + t * vec3(0.5f, 0.7f, 1.0f);
     }
