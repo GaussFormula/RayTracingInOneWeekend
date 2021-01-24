@@ -61,7 +61,7 @@ int main()
     const int thread_number = 12;
     PPMFileP3 picture(width, height);
 
-    vec3 lookFrom(0.0f, 0.0f, 1.0f);
+    vec3 lookFrom(-1.0f, 0.0f, 1.0f);
     vec3 lookAt(0.0f, 0.0f, -1.0f);
     vec3 up(0.0f, 1.0f, 0.0f);
     float fov = 90.0f;
@@ -74,7 +74,7 @@ int main()
     std::shared_ptr<Metal> metal = std::make_shared<Metal>(vec3(0.8f, 0.8f, 0.8f));
     std::shared_ptr<Lambertian> lambertian = std::make_shared<Lambertian>(vec3(0.8f, 0.8f, 0.0f));
     std::shared_ptr<Lambertian> lambertian2 = std::make_shared<Lambertian>(vec3(0.1f, 0.2f, 0.5f));
-    std::shared_ptr<Dielectric> dielectric = std::make_shared<Dielectric>(1.2f);
+    std::shared_ptr<Dielectric> dielectric = std::make_shared<Dielectric>(1.5f);
     std::shared_ptr<Dielectric> dielectric2 = std::make_shared<Dielectric>(1.51f);
 
     objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -0.5f), 0.5f, dielectric));
