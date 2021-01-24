@@ -64,6 +64,8 @@ public:
 
     void Normalized();
 
+    static vec3 GetRandomVecInUnitDisk();
+
 private:
     float data[3] = {};
 };

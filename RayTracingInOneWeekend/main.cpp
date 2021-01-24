@@ -61,13 +61,15 @@ int main()
     const int thread_number = 12;
     PPMFileP3 picture(width, height);
 
-    vec3 lookFrom(-1.0f, 0.0f, 1.0f);
+    vec3 lookFrom(0.0f, 0.0f, 1.0f);
     vec3 lookAt(0.0f, 0.0f, -1.0f);
     vec3 up(0.0f, 1.0f, 0.0f);
     float fov = 90.0f;
     float aspect = (float)width / (float)height;
+    float dist_to_focus = (lookFrom - lookAt).Length();
+    float aperture = 0.5f;
 
-    Camera camera(lookFrom, lookAt, up, fov, aspect);
+    Camera camera(lookFrom, lookAt, up, fov, aspect, aperture, dist_to_focus);
 
     HitableList objectList;
 
@@ -77,9 +79,9 @@ int main()
     std::shared_ptr<Dielectric> dielectric = std::make_shared<Dielectric>(1.5f);
     std::shared_ptr<Dielectric> dielectric2 = std::make_shared<Dielectric>(1.51f);
 
-    objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -0.5f), 0.5f, dielectric));
-    objectList.push_back(std::make_shared<Sphere>(vec3(-0.51f, 0.0f, -0.5f), 0.5f, metal));
-    objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -0.5f), -0.45f, dielectric));
+    objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -1.0f), 0.5f, dielectric));
+    objectList.push_back(std::make_shared<Sphere>(vec3(-0.51f, 0.0f, -1.0f), 0.5f, metal));
+    objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -1.0f), -0.45f, dielectric));
     objectList.push_back(std::make_shared<Sphere>(vec3(0.0f, -100.5f, -1.0f), 100.0f, lambertian));
 
     //objectList.ReferenceCount();

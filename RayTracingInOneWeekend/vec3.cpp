@@ -94,3 +94,13 @@ vec3 cross(const vec3& a, const vec3& b)
 {
     return vec3(a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]);
 }
+
+vec3 vec3::GetRandomVecInUnitDisk()
+{
+    vec3 p;
+    do 
+    {
+        p = 2.0f * vec3(rand() * 1.0f / RAND_MAX, rand() * 1.0f / RAND_MAX, 0) - vec3(1.0f, 1.0f, 0.0f);
+    } while (p * p >= 1.0f);
+    return p;
+}

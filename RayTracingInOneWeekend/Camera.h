@@ -30,20 +30,28 @@ public:
         myVerticalAxis = vec3(0.0f, 2 * half_height, 0.0f);
     }
 
-    Camera(const vec3& lookFrom, const vec3& lookAt, const vec3& vUp, const float& vFov, const float& aspect)
+    Camera(
+        const vec3& lookFrom, 
+        const vec3& lookAt, 
+        const vec3& vUp, 
+        const float& vFov, 
+        const float& aspect,
+        const float& aperture,
+        const float& focus_dist
+    )
     {
-        vec3 u, v, w;
         float radian_theta = vFov * 3.1415926f / 180;
         float half_height = std::tan(radian_theta / 2);
         float half_width = aspect * half_height;
+        myLensRadius = aperture / 2.0f;
         myOrigin = lookFrom;
         w = (lookFrom - lookAt).GetUnitVector();
         u = cross(vUp, w).GetUnitVector();
         v = cross(w, u);
         //myLowerLeftPoint = vec3(-half_width, -half_height, -1.0f);
-        myLowerLeftPoint = myOrigin - half_width * u - half_height * v - w;
-        myHorizontalAxis = 2 * half_width * u;
-        myVerticalAxis = 2 * half_height * v;
+        myLowerLeftPoint = myOrigin - half_width * u * focus_dist - half_height * v * focus_dist - w * focus_dist;
+        myHorizontalAxis = 2 * half_width * u * focus_dist;
+        myVerticalAxis = 2 * half_height * v * focus_dist;
     }
 
     vec3 GetOrigin() const
@@ -66,11 +74,14 @@ public:
         return myVerticalAxis;
     }
 
-    Ray GetRay(const float& u, const float& v)const;
+    Ray GetRay(const float& i, const float& j)const;
 
 private:
     vec3 myOrigin;
     vec3 myLowerLeftPoint;
     vec3 myHorizontalAxis;
     vec3 myVerticalAxis;
+    vec3 u, v, w;
+    float myLensRadius;
+
 };
