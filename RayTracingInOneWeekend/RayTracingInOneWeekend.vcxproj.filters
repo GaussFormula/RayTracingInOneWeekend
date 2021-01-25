@@ -92,5 +92,11 @@
     <ClInclude Include="Dielectric.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MovableSphere.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Movable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

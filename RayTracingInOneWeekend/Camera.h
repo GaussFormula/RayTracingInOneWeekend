@@ -13,13 +13,6 @@ public:
         myOrigin = vec3(0.0f, 0.0f, 1.0f);
     }
 
-    Camera(const vec3& origin,const vec3& lowerLeftPoint,const vec3& horizontalAxis,const vec3& verticalAxis)
-        :myOrigin(origin)
-        ,myLowerLeftPoint(lowerLeftPoint)
-        ,myHorizontalAxis(horizontalAxis)
-        ,myVerticalAxis(verticalAxis)
-    {}
-
     Camera(const float& vfov, const float& aspect)
     {
         float radians_theta = vfov * 3.1415926f / 180;
@@ -37,9 +30,13 @@ public:
         const float& vFov, 
         const float& aspect,
         const float& aperture,
-        const float& focus_dist
-    )
+        const float& focus_dist,
+        const float& time0,
+        const float& time1
+    )// New: add time0 and time1
     {
+        myTime0 = time0;
+        myTime1 = time1;
         float radian_theta = vFov * 3.1415926f / 180;
         float half_height = std::tan(radian_theta / 2);
         float half_width = aspect * half_height;
@@ -82,6 +79,6 @@ private:
     vec3 myHorizontalAxis;
     vec3 myVerticalAxis;
     vec3 u, v, w;
-    float myLensRadius;
-
+    float myLensRadius = 0.0f;
+    float myTime0, myTime1;
 };

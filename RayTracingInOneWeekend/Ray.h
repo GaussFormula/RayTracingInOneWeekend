@@ -4,9 +4,10 @@
 class Ray
 {
 public:
-    Ray(const vec3& origin,const vec3&direction)
+    Ray(const vec3& origin,const vec3&direction,const float& time=0.0f)
         :myOrigin(origin)
         ,myDirection(direction)
+        ,myExistTime(time)
     {}
 
     Ray()
@@ -30,6 +31,11 @@ public:
         return myDirection;
     }
 
+    float GetExistTime()const
+    {
+        return myExistTime;
+    }
+
     vec3 PointAtParameter(const float& t)const
     {
         return myOrigin + (t * myDirection);
@@ -38,4 +44,5 @@ public:
 private:
     vec3 myOrigin;
     vec3 myDirection;
+    float myExistTime = 0.0f;
 };

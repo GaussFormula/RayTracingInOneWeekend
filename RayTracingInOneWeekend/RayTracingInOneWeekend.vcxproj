@@ -161,6 +161,8 @@
     <ClInclude Include="Lambertian.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Metal.h" />
+    <ClInclude Include="Movable.h" />
+    <ClInclude Include="MovableSphere.h" />
     <ClInclude Include="PPMFile.h" />
     <ClInclude Include="PPMFileP3.h" />
     <ClInclude Include="Ray.h" />
