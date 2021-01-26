@@ -51,6 +51,9 @@
     <ClCompile Include="MovableSphere.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="PPMFileP6.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PPMFile.h">
@@ -99,6 +102,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="TestUnits.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PPMFileP6.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,12 +15,12 @@ std::shared_ptr<HitableList> GetRandomScene()
     std::shared_ptr<HitableList> hitableList = std::make_shared<HitableList>();
     hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, -1000.0f, 0.0f), 1000.0f,
         std::make_shared<Lambertian>(vec3(0.5f, 0.5f, 0.5f))));
-    for (int a = -10; a < 10; ++a)
+    for (int a = -3; a < 3; ++a)
     {
-        for (int b = -10; b < 10; ++b)
+        for (int b = -3; b < 3; ++b)
         {
             float choose_mat = Random01();
-            vec3 center(a + 0.9f * Random01(), 0.2f, b + 0.9 * Random01());
+            vec3 center(a + 0.9f * Random01(), 0.2f, b + 0.9f * Random01());
             if ((center - vec3(4.0f, 0.2f, 0.0f)).Length() > 0.9f)
             {
                 if (choose_mat < 0.8f)// Diffuse

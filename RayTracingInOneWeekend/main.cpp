@@ -1,4 +1,5 @@
 #include "PPMFileP3.h"
+#include "PPMFileP6.h"
 #include "Camera.h"
 #include "TestUnits.h"
 
@@ -15,6 +16,7 @@ void Rendering(int startRowNumber,
     int totalWidth,
     int totalHeight,
     std::string& outputBuffer,
+    std::vector<char>& outputBuffer2,
     const std::shared_ptr<HitableList>& objectList,
     const Camera& camera)
 {
@@ -22,7 +24,7 @@ void Rendering(int startRowNumber,
     {
         endRowNumber = totalHeight;
     }
-    const int sample_times = 7;
+    const int sample_times = 8;
     const int bounce_times = 50;
     for (int j = endRowNumber-1; j >= startRowNumber; --j)
     {
@@ -43,6 +45,7 @@ void Rendering(int startRowNumber,
             for (int i = 0; i < 3; ++i)
             {
                 colorStr += std::to_string((int)col[i]) + std::string(" ");
+                outputBuffer2.push_back((char)col[i]);
             }
             outputBuffer += colorStr;
         }
@@ -56,10 +59,11 @@ int main()
 
     const int width = 1500;
     const int height = width;
-    const int thread_number = 12;
+    const int thread_number = 24;
     PPMFileP3 picture(width, height);
+    PPMFileP6 picture2(width, height);
 
-    vec3 lookFrom(0.0f, 0.0f, 1.0f);
+    vec3 lookFrom(-1.0f, 3.0f, 4.0f);
     vec3 lookAt(0.0f, 0.0f, -1.0f);
     vec3 up(0.0f, 1.0f, 0.0f);
     float fov = 90.0f;
@@ -86,7 +90,9 @@ int main()
 
     std::vector<std::thread> threadArray;
     std::vector<std::string> outputBuffer;
+    std::vector<std::vector<char>> outputBuffer2;
     outputBuffer.resize(thread_number);
+    outputBuffer2.resize(thread_number);
 
     int length = height / thread_number + 1;
     int real_thread_number = 0;
@@ -103,6 +109,7 @@ int main()
                 width,
                 height,
                 std::ref(outputBuffer[i]),
+                std::ref(outputBuffer2[i]),
                 std::ref(objectList),
                 std::ref(camera)
             ));
@@ -120,9 +127,11 @@ int main()
     for (int i = real_thread_number-1; i >= 0; --i)
     {
         picture.AddPixelsToBuffer(outputBuffer[i]);
+        picture2.AddPixelsToBuffer(outputBuffer2[i]);
     }
     
     picture.OutputAsFile("1.ppm");
+    picture2.OutputAsFile("2.ppm");
 
     //objectList.ReferenceCount();
     return 0;
