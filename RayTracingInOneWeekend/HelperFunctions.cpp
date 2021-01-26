@@ -58,3 +58,8 @@ float Schlick(const float& cosine, const float& refraction_index)
     r0 = r0 * r0;
     return r0 + (1 - r0) * std::pow((1.0f - cosine), 5.0f);
 }
+
+float Random01()
+{
+    return rand() * 1.0f / RAND_MAX;
+}

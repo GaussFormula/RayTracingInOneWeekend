@@ -1,6 +1,7 @@
 #pragma once
 #include "Sphere.h"
 #include "Ray.h"
+#include "MovableSphere.h"
 
 // For detecting a hit between sphere and ray
 class HitDetection 
@@ -16,6 +17,8 @@ public:
     }
 
     HitDetection(const Sphere& sphere, const Ray& ray);
+
+    HitDetection(const MovableSphere& sphere, const Ray& ray);
 
     float GetDiscriminant()const
     {

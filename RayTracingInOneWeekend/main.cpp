@@ -1,10 +1,6 @@
 #include "PPMFileP3.h"
-#include "HitableList.h"
-#include "Sphere.h"
 #include "Camera.h"
-#include "Metal.h"
-#include "Lambertian.h"
-#include "Dielectric.h"
+#include "TestUnits.h"
 
 #include <ctime>
 #include <cstdlib>
@@ -19,7 +15,7 @@ void Rendering(int startRowNumber,
     int totalWidth,
     int totalHeight,
     std::string& outputBuffer,
-    const HitableList& objectList,
+    const std::shared_ptr<HitableList>& objectList,
     const Camera& camera)
 {
     if (endRowNumber > totalHeight)
@@ -38,7 +34,7 @@ void Rendering(int startRowNumber,
                 float u = float(i + rand() * 1.0f / RAND_MAX) / (float)totalWidth;
                 float v = float(j + rand() * 1.0f / RAND_MAX) / (float)totalHeight;
                 Ray r(camera.GetRay(u, v));
-                col += objectList.Hit(r, 0.001f, std::numeric_limits<float>::max(), bounce_times);
+                col += objectList->Hit(r, 0.001f, std::numeric_limits<float>::max(), bounce_times);
             }
             col *= 255.99f / sample_times;
 
@@ -56,6 +52,8 @@ void Rendering(int startRowNumber,
 
 int main()
 {
+    srand((unsigned int)time(0));
+
     const int width = 1500;
     const int height = width;
     const int thread_number = 12;
@@ -67,13 +65,13 @@ int main()
     float fov = 90.0f;
     float aspect = (float)width / (float)height;
     float dist_to_focus = (lookFrom - lookAt).Length();
-    float aperture = 0.5f;
+    float aperture = 0.005f;
 
-    Camera camera(lookFrom, lookAt, up, fov, aspect, aperture, dist_to_focus);
+    Camera camera(lookFrom, lookAt, up, fov, aspect, aperture, dist_to_focus, 0.0f, 1.0f);
 
-    HitableList objectList;
+    std::shared_ptr<HitableList> objectList = GetRandomScene();
 
-    std::shared_ptr<Metal> metal = std::make_shared<Metal>(vec3(0.8f, 0.8f, 0.8f));
+    /*std::shared_ptr<Metal> metal = std::make_shared<Metal>(vec3(0.8f, 0.8f, 0.8f));
     std::shared_ptr<Lambertian> lambertian = std::make_shared<Lambertian>(vec3(0.8f, 0.8f, 0.0f));
     std::shared_ptr<Lambertian> lambertian2 = std::make_shared<Lambertian>(vec3(0.1f, 0.2f, 0.5f));
     std::shared_ptr<Dielectric> dielectric = std::make_shared<Dielectric>(1.5f);
@@ -82,11 +80,9 @@ int main()
     objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -1.0f), 0.5f, dielectric));
     objectList.push_back(std::make_shared<Sphere>(vec3(-0.51f, 0.0f, -1.0f), 0.5f, metal));
     objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -1.0f), -0.45f, dielectric));
-    objectList.push_back(std::make_shared<Sphere>(vec3(0.0f, -100.5f, -1.0f), 100.0f, lambertian));
+    objectList.push_back(std::make_shared<Sphere>(vec3(0.0f, -100.5f, -1.0f), 100.0f, lambertian));*/
 
     //objectList.ReferenceCount();
-
-    srand((unsigned int)time(0));
 
     std::vector<std::thread> threadArray;
     std::vector<std::string> outputBuffer;

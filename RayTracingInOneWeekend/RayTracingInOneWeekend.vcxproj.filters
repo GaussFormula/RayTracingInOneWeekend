@@ -48,6 +48,9 @@
     <ClCompile Include="Dielectric.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MovableSphere.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PPMFile.h">
@@ -95,7 +98,7 @@
     <ClInclude Include="MovableSphere.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Movable.h">
+    <ClInclude Include="TestUnits.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

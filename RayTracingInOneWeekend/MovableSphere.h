@@ -1,9 +1,8 @@
 #pragma once
 
 #include "Hitable.h"
-#include "Movable.h"
 
-class MovableSphere :public Hitable,public Movable
+class MovableSphere :public Hitable
 {
 public:
     MovableSphere()
@@ -22,9 +21,19 @@ public:
         ,myMaterial(material)
     {}
 
+    std::shared_ptr<Material> GetMaterial()const
+    {
+        return myMaterial;
+    }
+
+    float GetRadius()const
+    {
+        return myRadius;
+    }
+
     virtual bool Hit(const Ray& ray, const float& t_min, const float& t_max, HitRecord& hitRecord)const override;
 
-    virtual vec3 GetCurrentPositionByTime(const float& currentTime)const override;
+    vec3 GetCurrentPositionByTime(const float& currentTime)const;
 
 private:
     float myTime0, myTime1;
