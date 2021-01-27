@@ -97,3 +97,10 @@ bool Sphere::Hit(const Ray& ray, const float& t_min, const float& t_max, HitReco
         return false;
     }
 }
+
+bool Sphere::BoundingBox(const float& t0, const float& t1, AABB& aabb, const float time = 0.0f)const
+{
+    // No need to use time because this object is stationary.
+    aabb = AABB(myOrigin - vec3(myRadius, myRadius, myRadius), myOrigin + vec3(myRadius, myRadius, myRadius));
+    return true;
+}

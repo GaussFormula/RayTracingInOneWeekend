@@ -33,7 +33,11 @@ public:
 
     virtual bool Hit(const Ray& ray, const float& t_min, const float& t_max, HitRecord& hitRecord)const override;
 
+    virtual bool BoundingBox(const float& t0, const float& t1, AABB& aabb, const float time = 0.0f)const override;
+
     vec3 GetCurrentPositionByTime(const float& currentTime)const;
+
+    AABB GetCurrentAABBByTime(const float& currentTime)const;
 
 private:
     float myTime0, myTime1;

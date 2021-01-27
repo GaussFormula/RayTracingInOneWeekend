@@ -31,7 +31,9 @@ public:
 
     float BeHitByRay_V2(const Ray& ray)const;
 
-    virtual bool Hit(const Ray& ray, const float& t_min, const float& t_max, HitRecord& hitRecord)const;
+    virtual bool Hit(const Ray& ray, const float& t_min, const float& t_max, HitRecord& hitRecord)const override;
+
+    virtual bool BoundingBox(const float& t0, const float& t1, AABB& aabb, const float time = 0.0f)const override;
 
     virtual ~Sphere(){}
 

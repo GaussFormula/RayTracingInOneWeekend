@@ -39,3 +39,15 @@ vec3 MovableSphere::GetCurrentPositionByTime(const float& currentTime)const
 {
     return myOrigin0 + (currentTime - myTime0) / (myTime1 - myTime0) * (myOrigin1 - myOrigin0);
 }
+
+bool MovableSphere::BoundingBox(const float& t0, const float& t1, AABB& aabb, const float time = 0.0f)const
+{
+    aabb = GetCurrentAABBByTime(time);
+    return true;
+}
+
+AABB MovableSphere::GetCurrentAABBByTime(const float& currentTime)const
+{
+    vec3 currentPosition = GetCurrentPositionByTime(currentTime);
+    return AABB(currentPosition - vec3(myRadius, myRadius, myRadius), currentPosition + vec3(myRadius, myRadius, myRadius));
+}
