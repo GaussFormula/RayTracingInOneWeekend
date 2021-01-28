@@ -10,7 +10,21 @@ bool BVHNode::BoundingBox(const float& t0, const float& t1, AABB& aabb, const fl
 
 bool BVHNode::Hit(const Ray& ray, const float& t_min, const float& t_max, HitRecord& hitRecord)const
 {
-    if (box.Hit(ray, t_min, t_max))
+    AABB real_box;
+    bool isCurrentMovableSphere = false;
+    if (left == right)
+    {
+        if (strcmp("class MovableSphere", typeid(*(left.get())).name()) == 0)
+        {
+            left->BoundingBox(t_min, t_max, real_box, ray.GetExistTime());
+            isCurrentMovableSphere = true;
+        }
+    }
+    if (!isCurrentMovableSphere)
+    {
+        real_box = box;
+    }
+    if (real_box.Hit(ray, t_min, t_max))
     {
         HitRecord left_rec, right_rec;
         bool hit_left = left->Hit(ray, t_min, t_max, left_rec);

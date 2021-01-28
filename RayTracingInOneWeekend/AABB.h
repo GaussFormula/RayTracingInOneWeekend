@@ -11,6 +11,13 @@ public:
         ,myMax(b)
     {}
 
+    AABB& operator=(const AABB& rhs)
+    {
+        myMin = rhs.GetMin();
+        myMax = rhs.GetMax();
+        return *this;
+    }
+
     vec3 GetMin()const
     {
         return myMin;
