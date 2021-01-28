@@ -1,8 +1,7 @@
-#include "HitableList.h"
-#include "HelperFunctions.h"
+#include "BVHList.h"
 #include "Material.h"
 
-vec3 HitableList::Hit(const Ray& ray, const float& t_min, const float& t_max,const int& reflectionLimit)const
+vec3 BVHList::Hit(const Ray& ray, const float& t_min, const float& t_max, const int& reflectionLimit)const
 {
     if (reflectionLimit <= 0)
     {
@@ -12,14 +11,9 @@ vec3 HitableList::Hit(const Ray& ray, const float& t_min, const float& t_max,con
     bool hit_anything = false;
     float cloest_so_far = t_max;
     int closest_index = 0;
-    for (int i = 0; i < myList.size(); ++i)
+    if (head.Hit(ray, t_min, t_max, temp_rec))
     {
-        if (myList[i]->Hit(ray, t_min, cloest_so_far, temp_rec))
-        {
-            hit_anything = true;
-            cloest_so_far = temp_rec.t;
-            closest_index = i;
-        }
+        hit_anything = true;
     }
     if (hit_anything)
     {
@@ -41,9 +35,4 @@ vec3 HitableList::Hit(const Ray& ray, const float& t_min, const float& t_max,con
         float t = 0.5f * (unit_direction.Y() + 1.0f);
         return (1.0f - t) * vec3(1.0f, 1.0f, 1.0f) + t * vec3(0.5f, 0.7f, 1.0f);
     }
-}
-
-void HitableList::push_back(const std::shared_ptr<Hitable>& object)
-{
-    myList.push_back(object);
 }

@@ -2,6 +2,7 @@
 #include "PPMFileP6.h"
 #include "Camera.h"
 #include "TestUnits.h"
+#include "BVHList.h"
 
 #include <ctime>
 #include <cstdlib>
@@ -17,7 +18,7 @@ void Rendering(int startRowNumber,
     int totalHeight,
     std::string& outputBuffer,
     std::vector<char>& outputBuffer2,
-    const std::shared_ptr<HitableList>& objectList,
+    const std::shared_ptr<BVHList>& bvhList,
     const Camera& camera)
 {
     if (endRowNumber > totalHeight)
@@ -36,7 +37,7 @@ void Rendering(int startRowNumber,
                 float u = float(i + rand() * 1.0f / RAND_MAX) / (float)totalWidth;
                 float v = float(j + rand() * 1.0f / RAND_MAX) / (float)totalHeight;
                 Ray r(camera.GetRay(u, v));
-                col += objectList->Hit(r, 0.001f, std::numeric_limits<float>::max(), bounce_times);
+                col += bvhList->Hit(r, 0.001f, std::numeric_limits<float>::max(), bounce_times);
             }
             col *= 255.99f / sample_times;
 
@@ -74,17 +75,21 @@ int main()
     Camera camera(lookFrom, lookAt, up, fov, aspect, aperture, dist_to_focus, 0.0f, 1.0f);
 
     std::shared_ptr<HitableList> objectList = GetRandomScene();
-
+    //HitableList objectList;
+    
     /*std::shared_ptr<Metal> metal = std::make_shared<Metal>(vec3(0.8f, 0.8f, 0.8f));
     std::shared_ptr<Lambertian> lambertian = std::make_shared<Lambertian>(vec3(0.8f, 0.8f, 0.0f));
     std::shared_ptr<Lambertian> lambertian2 = std::make_shared<Lambertian>(vec3(0.1f, 0.2f, 0.5f));
     std::shared_ptr<Dielectric> dielectric = std::make_shared<Dielectric>(1.5f);
-    std::shared_ptr<Dielectric> dielectric2 = std::make_shared<Dielectric>(1.51f);
+    std::shared_ptr<Dielectric> dielectric2 = std::make_shared<Dielectric>(1.51f);*/
 
-    objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -1.0f), 0.5f, dielectric));
+    /*objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -1.0f), 0.5f, lambertian2));
     objectList.push_back(std::make_shared<Sphere>(vec3(-0.51f, 0.0f, -1.0f), 0.5f, metal));
     objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -1.0f), -0.45f, dielectric));
     objectList.push_back(std::make_shared<Sphere>(vec3(0.0f, -100.5f, -1.0f), 100.0f, lambertian));*/
+
+    BVHNode bvh(objectList->GetList(), 0, objectList->size(), 0.0f, 1.0f);
+    std::shared_ptr<BVHList> bvhList = std::make_shared<BVHList>(bvh);
 
     //objectList.ReferenceCount();
 
@@ -110,7 +115,7 @@ int main()
                 height,
                 std::ref(outputBuffer[i]),
                 std::ref(outputBuffer2[i]),
-                std::ref(objectList),
+                std::ref(bvhList),
                 std::ref(camera)
             ));
         //std::cout << i * length << " " << (i + 1) * length << std::endl;

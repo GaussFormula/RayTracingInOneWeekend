@@ -48,12 +48,12 @@ bool BVHNode::Hit(const Ray& ray, const float& t_min, const float& t_max, HitRec
     }
 }
 
-BVHNode::BVHNode(const std::vector<std::shared_ptr<Hitable>>& list, const int& start, const int& n, const float& time0, const float& time1)
+BVHNode::BVHNode(std::vector<std::shared_ptr<Hitable>>& list, const int& start, const int& n, const float& time0, const float& time1)
 {
     int axis = int(3 * Random01());
     if (axis == 0)
     {
-        std::qsort(list[start].get(), n, sizeof(std::shared_ptr<Hitable>), 
+        std::qsort(&list[start], n, sizeof(std::shared_ptr<Hitable>), 
             [](const void* a, const void* b)->int 
             {
                 AABB box_left, box_right;
@@ -75,7 +75,7 @@ BVHNode::BVHNode(const std::vector<std::shared_ptr<Hitable>>& list, const int& s
     }
     else if (axis == 1)
     {
-        std::qsort(list[start].get(), n, sizeof(std::shared_ptr<Hitable>),
+        std::qsort(&list[start], n, sizeof(std::shared_ptr<Hitable>),
             [](const void* a, const void* b)->int
             {
                 AABB box_left, box_right;
@@ -97,7 +97,7 @@ BVHNode::BVHNode(const std::vector<std::shared_ptr<Hitable>>& list, const int& s
     }
     else
     {
-        std::qsort(list[start].get(), n, sizeof(std::shared_ptr<Hitable>),
+        std::qsort(&list[start], n, sizeof(std::shared_ptr<Hitable>),
             [](const void* a, const void* b)->int
             {
                 AABB box_left, box_right;
@@ -119,12 +119,12 @@ BVHNode::BVHNode(const std::vector<std::shared_ptr<Hitable>>& list, const int& s
     }
     if (n == 1)
     {
-        left = right = list[0];
+        left = right = list[start];
     }
     else if (n == 2)
     {
-        left = list[0];
-        right = list[1];
+        left = list[start];
+        right = list[start + 1];
     }
     else
     {
@@ -137,5 +137,5 @@ BVHNode::BVHNode(const std::vector<std::shared_ptr<Hitable>>& list, const int& s
     {
         std::cerr << "no bounding box in bvh_node constructor";
     }
-
+    box = AABB::SurroundingBox(box_left, box_right);
 }

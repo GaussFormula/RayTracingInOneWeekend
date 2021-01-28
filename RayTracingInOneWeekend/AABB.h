@@ -33,6 +33,8 @@ public:
 
     bool Hit(const Ray& ray, const float& tmin, const float& tmax)const;
 
+    static AABB SurroundingBox(AABB& box0, AABB& box1);
+
 private:
     vec3 myMin, myMax;
 };

@@ -22,6 +22,11 @@ public:
         std::cout << myList[1].use_count();
     }
 
+    std::vector<std::shared_ptr<Hitable>>& GetList()
+    {
+        return myList;
+    }
+
 private:
     std::vector<std::shared_ptr<Hitable>> myList;
 };

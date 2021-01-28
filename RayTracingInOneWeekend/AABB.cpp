@@ -15,10 +15,37 @@ bool AABB::Hit(const Ray& ray, const float& tmin, const float& tmax)const
 
         float temp_min_tmax = t0 < tmin ? tmin : t0;
         float temp_max_tmin = t1 < tmax ? t1 : tmax;
-        if (temp_min_tmax <= temp_max_tmin)
+        if (temp_min_tmax >= temp_max_tmin)
         {
             return false;
         }
     }
     return true;
+}
+
+AABB AABB::SurroundingBox(AABB& box0, AABB& box1)
+{
+    vec3 small, big;
+    for (int i = 0; i < 3; ++i)
+    {
+        if (box0.GetMin()[i] < box1.GetMin()[i])
+        {
+            small[i] = box0.GetMin()[i];
+        }
+        else
+        {
+            small[i] = box1.GetMin()[i];
+        }
+
+        if (box0.GetMax()[i] > box1.GetMax()[i])
+        {
+            big[i] = box0.GetMax()[i];
+        }
+        else
+        {
+            big[i] = box1.GetMax()[i];
+        }
+    }
+
+    return AABB(small, big);
 }
