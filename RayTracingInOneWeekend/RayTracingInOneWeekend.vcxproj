@@ -143,6 +143,7 @@
     <ClCompile Include="BVHList.cpp" />
     <ClCompile Include="BVHNode.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ConstantTexture.cpp" />
     <ClCompile Include="Dielectric.cpp" />
     <ClCompile Include="HelperFunctions.cpp" />
     <ClCompile Include="HitableList.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="BVHList.h" />
     <ClInclude Include="BVHNode.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ConstantTexture.h" />
     <ClInclude Include="Dielectric.h" />
     <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="Hitable.h" />
@@ -176,6 +178,7 @@
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="TestUnits.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="vec3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

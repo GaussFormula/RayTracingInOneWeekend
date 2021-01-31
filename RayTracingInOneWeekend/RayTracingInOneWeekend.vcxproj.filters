@@ -63,6 +63,9 @@
     <ClCompile Include="BVHList.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ConstantTexture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PPMFile.h">
@@ -123,6 +126,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="BVHList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantTexture.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

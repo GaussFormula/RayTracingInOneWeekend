@@ -7,6 +7,7 @@
 #include "Dielectric.h"
 #include "HitableList.h"
 #include "HelperFunctions.h"
+#include "ConstantTexture.h"
 
 #include <memory>
 
@@ -14,7 +15,7 @@ std::shared_ptr<HitableList> GetRandomScene()
 {
     std::shared_ptr<HitableList> hitableList = std::make_shared<HitableList>();
     hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, -1000.0f, 0.0f), 1000.0f,
-        std::make_shared<Lambertian>(vec3(0.5f, 0.5f, 0.5f))));
+        std::make_shared<Lambertian>(std::make_shared<ConstantTexture>(vec3(0.5f, 0.5f, 0.5f)))));
     for (int a = -3; a < 3; ++a)
     {
         for (int b = -3; b < 3; ++b)
@@ -33,7 +34,8 @@ std::shared_ptr<HitableList> GetRandomScene()
                             0.0f, 1.0f, 0.2f,
                             std::make_shared<Lambertian>
                             (
-                                vec3(Random01() * Random01(), Random01() * Random01(), Random01() * Random01())
+                                std::make_shared<ConstantTexture>
+                                (vec3(Random01() * Random01(), Random01() * Random01(), Random01() * Random01()))
                             )
                         )
                     );
@@ -57,7 +59,7 @@ std::shared_ptr<HitableList> GetRandomScene()
     }
 
     hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, 1.0f, 0.0f), 1.0f, std::make_shared<Dielectric>(0.5f)));
-    hitableList->push_back(std::make_shared<Sphere>(vec3(-4.0f, 1.0f, 0.0f), 1.0f, std::make_shared<Lambertian>(vec3(0.4f, 0.2f, 0.1f))));
+    hitableList->push_back(std::make_shared<Sphere>(vec3(-4.0f, 1.0f, 0.0f), 1.0f, std::make_shared<Lambertian>(std::make_shared<ConstantTexture>(vec3(0.4f, 0.2f, 0.1f)))));
     hitableList->push_back(std::make_shared<Sphere>(vec3(4.0f, 1.0f, 0.0f), 1.0f, std::make_shared<Metal>(vec3(0.7f, 0.6f, 0.5f))));
     return hitableList;
 }
