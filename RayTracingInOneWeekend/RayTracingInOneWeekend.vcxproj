@@ -179,6 +179,7 @@
     <ClInclude Include="PPMFileP6.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="TestUnits.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="vec3.h" />

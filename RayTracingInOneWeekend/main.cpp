@@ -4,6 +4,9 @@
 #include "TestUnits.h"
 #include "BVHList.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 #include <ctime>
 #include <cstdlib>
 
@@ -73,6 +76,8 @@ int main()
     float aperture = 0.005f;
 
     Camera camera(lookFrom, lookAt, up, fov, aspect, aperture, dist_to_focus, 0.0f, 1.0f);
+
+
 
     std::shared_ptr<HitableList> objectList = GetRandomScene();
     //HitableList objectList;

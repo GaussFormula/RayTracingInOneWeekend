@@ -1,5 +1,7 @@
 #include "HelperFunctions.h"
 #include "Sphere.h"
+#define _USE_MATH_DEFINES 1
+#include <math.h>
 #include <cmath>
 
 //static const Sphere sphere = Sphere(vec3(0.0f, 0.0f, -1.0f), 0.5f);
@@ -62,4 +64,15 @@ float Schlick(const float& cosine, const float& refraction_index)
 float Random01()
 {
     return rand() * 1.0f / RAND_MAX;
+}
+
+void GetSphereUV(const vec3& hitPoint, const Sphere& sphere, float& u, float& v)
+{
+    vec3 unit_hitVector = 1.0f / sphere.GetRadius() * (hitPoint - sphere.GetOrigin());
+    float phi = atan2(unit_hitVector.Z(), unit_hitVector.X());
+    float theta = asin(unit_hitVector.Y());
+    // theta is latitude. From -pi/2 to pi/2.
+    v = (theta + M_PI_2) / M_PI;
+    u = 1 - (phi + M_PI) / (2 * M_PI);
+    // phi from -pi to pi.
 }

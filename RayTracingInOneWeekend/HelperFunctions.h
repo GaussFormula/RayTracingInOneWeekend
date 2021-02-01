@@ -15,3 +15,5 @@ bool Refraction(const vec3& incident, const vec3& normal, const float& ni_over_n
 float Schlick(const float& cosine, const float& refraction_index);
 
 float Random01();
+
+void GetSphereUV(const vec3& hitPoint,const Sphere& sphere, float& u, float& v);
