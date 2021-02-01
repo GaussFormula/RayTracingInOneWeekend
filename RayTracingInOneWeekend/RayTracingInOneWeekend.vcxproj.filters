@@ -134,5 +134,8 @@
     <ClInclude Include="ConstantTexture.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CheckerTexture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
