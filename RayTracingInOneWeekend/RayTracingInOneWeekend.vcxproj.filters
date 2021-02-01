@@ -66,6 +66,9 @@
     <ClCompile Include="ConstantTexture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="CheckerTexture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PPMFile.h">

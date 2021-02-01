@@ -143,6 +143,7 @@
     <ClCompile Include="BVHList.cpp" />
     <ClCompile Include="BVHNode.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CheckerTexture.cpp" />
     <ClCompile Include="ConstantTexture.cpp" />
     <ClCompile Include="Dielectric.cpp" />
     <ClCompile Include="HelperFunctions.cpp" />
