@@ -2,6 +2,7 @@
 
 #include "Sphere.h"
 #include "HitDetection.h"
+#include "HelperFunctions.h"
 
 
 bool Sphere::BeHitByRay(const Ray& ray)const
@@ -77,6 +78,7 @@ bool Sphere::Hit(const Ray& ray, const float& t_min, const float& t_max, HitReco
             //temp.Normalized();
             hitRecord.normal = temp;
             hitRecord.material = myMaterial;
+            GetSphereUV(hitRecord.point, *this, hitRecord.u, hitRecord.v);
             return true;
         }
         t = detetion.GetRoot2();
@@ -88,6 +90,7 @@ bool Sphere::Hit(const Ray& ray, const float& t_min, const float& t_max, HitReco
             //temp.Normalized();
             hitRecord.normal = temp;
             hitRecord.material = myMaterial;
+            GetSphereUV(hitRecord.point, *this, hitRecord.u, hitRecord.v);
             return true;
         }
         return false;

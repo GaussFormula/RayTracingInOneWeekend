@@ -149,6 +149,7 @@
     <ClCompile Include="HelperFunctions.cpp" />
     <ClCompile Include="HitableList.cpp" />
     <ClCompile Include="HitDetection.cpp" />
+    <ClCompile Include="ImageTexture.cpp" />
     <ClCompile Include="Lambertian.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Metal.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Hitable.h" />
     <ClInclude Include="HitableList.h" />
     <ClInclude Include="HitDetection.h" />
+    <ClInclude Include="ImageTexture.h" />
     <ClInclude Include="Lambertian.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Metal.h" />

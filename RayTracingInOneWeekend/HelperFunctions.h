@@ -2,6 +2,7 @@
 
 #include "Ray.h"
 #include "Hitable.h"
+#include "Sphere.h"
 #include <memory>
 
 vec3 RayColor(const Ray& r,const std::unique_ptr<Hitable>& object);
