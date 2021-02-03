@@ -146,6 +146,7 @@
     <ClCompile Include="CheckerTexture.cpp" />
     <ClCompile Include="ConstantTexture.cpp" />
     <ClCompile Include="Dielectric.cpp" />
+    <ClCompile Include="DiffuseLight.cpp" />
     <ClCompile Include="HelperFunctions.cpp" />
     <ClCompile Include="HitableList.cpp" />
     <ClCompile Include="HitDetection.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="TestUnits.cpp" />
     <ClCompile Include="vec3.cpp" />
+    <ClCompile Include="XYRectangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB.h" />
@@ -168,6 +170,7 @@
     <ClInclude Include="CheckerTexture.h" />
     <ClInclude Include="ConstantTexture.h" />
     <ClInclude Include="Dielectric.h" />
+    <ClInclude Include="DiffuseLight.h" />
     <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="Hitable.h" />
     <ClInclude Include="HitableList.h" />
@@ -186,6 +189,7 @@
     <ClInclude Include="TestUnits.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="vec3.h" />
+    <ClInclude Include="XYRectangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

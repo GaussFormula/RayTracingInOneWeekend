@@ -26,7 +26,7 @@ void Rendering(int startRowNumber,
     {
         endRowNumber = totalHeight;
     }
-    const int sample_times = 8;
+    const int sample_times = 12;
     const int bounce_times = 50;
     for (int j = endRowNumber-1; j >= startRowNumber; --j)
     {

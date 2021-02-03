@@ -3,8 +3,11 @@
 #define _USE_MATH_DEFINES 1
 #include <math.h>
 #include <cmath>
+#include <random>
+#include <time.h>
 
-//static const Sphere sphere = Sphere(vec3(0.0f, 0.0f, -1.0f), 0.5f);
+static std::default_random_engine ourRandomEngine(time(0));
+static std::uniform_real_distribution<float> ourDistribution(0, 1);
 
 vec3 RayColor(const Ray& r, const std::unique_ptr<Hitable>& object)
 {
@@ -63,7 +66,7 @@ float Schlick(const float& cosine, const float& refraction_index)
 
 float Random01()
 {
-    return rand() * 1.0f / RAND_MAX;
+    return ourDistribution(ourRandomEngine);
 }
 
 void GetSphereUV(const vec3& hitPoint, const Sphere& sphere, float& u, float& v)
