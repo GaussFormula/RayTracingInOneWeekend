@@ -5,9 +5,6 @@
 #include "BVHList.h"
 #include "ImageTexture.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-
 #include <ctime>
 #include <cstdlib>
 
@@ -68,8 +65,8 @@ int main()
     PPMFileP3 picture(width, height);
     PPMFileP6 picture2(width, height);
 
-    vec3 lookFrom(0.0f, 3.0f, 4.0f);
-    vec3 lookAt(0.0f, 0.0f, -1.0f);
+    vec3 lookFrom(5.0f, 0.5f, 0.0f);
+    vec3 lookAt(0.0f, 0.0f, 0.0f);
     vec3 up(0.0f, 1.0f, 0.0f);
     float fov = 90.0f;
     float aspect = (float)width / (float)height;
@@ -78,26 +75,11 @@ int main()
 
     Camera camera(lookFrom, lookAt, up, fov, aspect, aperture, dist_to_focus, 0.0f, 1.0f);
 
-    int nx, ny, nn;
-    int nx2, ny2, nn2;
-    unsigned char* tex_data = stbi_load("earth.jpg", &nx, &ny, &nn, 0);
-    unsigned char* tex_data2= stbi_load("moon.jpg", &nx2, &ny2, &nn2, 0);
-
     //std::shared_ptr<HitableList> objectList = GetRandomScene();
-    HitableList objectList;
+    std::shared_ptr<HitableList> objectList = GetFixedScene();
     
-    std::shared_ptr<Metal> metal = std::make_shared<Metal>(vec3(0.8f, 0.8f, 0.8f));
-    std::shared_ptr<Lambertian> lambertian = std::make_shared<Lambertian>(std::make_shared<ImageTexture>(tex_data, nx, ny));
-    std::shared_ptr<Lambertian> lambertian2 = std::make_shared<Lambertian>(std::make_shared<ImageTexture>(tex_data2, nx2, ny2));
-    std::shared_ptr<Dielectric> dielectric = std::make_shared<Dielectric>(1.5f);
-    std::shared_ptr<Dielectric> dielectric2 = std::make_shared<Dielectric>(1.51f);
 
-    objectList.push_back(std::make_shared<Sphere>(vec3(1.51f, 1.5f, -1.0f), 1.5f, lambertian));
-    objectList.push_back(std::make_shared<Sphere>(vec3(-0.51f, 0.0f, -1.0f), 0.5f, metal));
-    //objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -1.0f), -0.45f, dielectric));
-    //objectList.push_back(std::make_shared<Sphere>(vec3(0.0f, -100.5f, -1.0f), 100.0f, lambertian2));
-
-    BVHNode bvh(objectList.GetList(), 0, objectList.size(), 0.0f, 1.0f);
+    BVHNode bvh(objectList->GetList(), 0, (int)objectList->size(), 0.0f, 1.0f);
     std::shared_ptr<BVHList> bvhList = std::make_shared<BVHList>(bvh);
 
     //objectList.ReferenceCount();

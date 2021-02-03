@@ -157,6 +157,7 @@
     <ClCompile Include="PPMFileP3.cpp" />
     <ClCompile Include="PPMFileP6.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="TestUnits.cpp" />
     <ClCompile Include="vec3.cpp" />
   </ItemGroup>
   <ItemGroup>

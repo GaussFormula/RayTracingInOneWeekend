@@ -72,7 +72,7 @@ void GetSphereUV(const vec3& hitPoint, const Sphere& sphere, float& u, float& v)
     float phi = atan2(unit_hitVector.Z(), unit_hitVector.X());
     float theta = asin(unit_hitVector.Y());
     // theta is latitude. From -pi/2 to pi/2.
-    v = (theta + M_PI_2) / M_PI;
+    v = 1 - (theta + M_PI_2) / M_PI;
     u = 1 - (phi + M_PI) / (2 * M_PI);
     // phi from -pi to pi.
 }
