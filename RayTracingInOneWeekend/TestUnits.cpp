@@ -99,8 +99,8 @@ std::shared_ptr<HitableList> GetFixedScene()
     //hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, 1.5f, -1.52f), 0.5f, diffuseLight));
     //objectList.push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -1.0f), -0.45f, dielectric));
     hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, -100.5f, -1.0f), 100.0f, lambertian2));
-    hitableList->push_back(std::make_shared<XYRectangle>(-1.0f, 1.5f, 0.0f, 1.0f, 2.1f, diffuseLight));
-    hitableList->push_back(std::make_shared<XYRectangle>(-1.0f, 1.5f, 0.0f, 1.0f, -2.1f, diffuseLight));
+    hitableList->push_back(std::make_shared<XYRectangle>(-1.0f, 1.5f, 0.0f, 1.0f, 1.2f, diffuseLight));
+    hitableList->push_back(std::make_shared<XYRectangle>(-1.0f, 1.5f, 0.0f, 1.0f, -1.2f, diffuseLight));
 
     return hitableList;
 }

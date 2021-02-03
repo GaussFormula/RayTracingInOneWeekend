@@ -4,6 +4,7 @@
 #include "TestUnits.h"
 #include "BVHList.h"
 #include "ImageTexture.h"
+#include "HelperFunctions.h"
 
 #include <ctime>
 #include <cstdlib>
@@ -26,8 +27,9 @@ void Rendering(int startRowNumber,
     {
         endRowNumber = totalHeight;
     }
-    const int sample_times = 12;
+    const int sample_times = 5;
     const int bounce_times = 50;
+    const float inv_sample_times = 1.0f / sample_times;
     for (int j = endRowNumber-1; j >= startRowNumber; --j)
     {
         for (int i = startColumnNumber; i < endColumnNumber; ++i)
@@ -35,12 +37,12 @@ void Rendering(int startRowNumber,
             vec3 col(0.0f, 0.0f, 0.0f);
             for (int s = 0; s < sample_times; ++s)
             {
-                float u = float(i + rand() * 1.0f / RAND_MAX) / (float)totalWidth;
-                float v = float(j + rand() * 1.0f / RAND_MAX) / (float)totalHeight;
+                float u = float(i + Random01()) / (float)totalWidth;
+                float v = float(j + Random01()) / (float)totalHeight;
                 Ray r(camera.GetRay(u, v));
                 col += bvhList->Hit(r, 0.001f, std::numeric_limits<float>::max(), bounce_times);
             }
-            col *= 255.99f / sample_times;
+            col *= inv_sample_times;
 
             //col *= 255.99f;
             std::string colorStr;
