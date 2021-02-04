@@ -59,15 +59,13 @@ void Rendering(int startRowNumber,
 
 int main()
 {
-    srand((unsigned int)time(0));
-
     const int width = 1500;
     const int height = width;
     const int thread_number = 24;
     PPMFileP3 picture(width, height);
     PPMFileP6 picture2(width, height);
 
-    vec3 lookFrom(5.0f, 0.5f, 0.0f);
+    vec3 lookFrom(4.0f, 1.0f, 0.0f);
     vec3 lookAt(0.0f, 0.0f, 0.0f);
     vec3 up(0.0f, 1.0f, 0.0f);
     float fov = 90.0f;

@@ -20,7 +20,7 @@ bool XYRectangle::Hit(const Ray& ray, const float& t_min, const float& t_max, Hi
         return false;
     }
     hitRecord.u = (x - x0) / (x1 - x0);
-    hitRecord.v = (y - y0) / (y1 - y0);
+    hitRecord.v = 1.0f - (y - y0) / (y1 - y0);
     hitRecord.t = t;
     hitRecord.material = myMaterial;
     hitRecord.point = ray.PointAtParameter(t);

@@ -21,8 +21,8 @@ vec3 ImageTexture::GetValue(const float& u, const float& v, const vec3& p)const
         j = myHeight - 1;
     }
 
-    float r = int(data[3 * i + 3 * myWidth * j]) / 255.0f;
-    float g = int(data[3 * i + 3 * myWidth * j + 1]) / 255.0f;
-    float b = int(data[3 * i + 3 * myWidth * j + 2]) / 255.0f;
+    float r = int(data[3 * i + 3 * myWidth * j])*1.0f;
+    float g = int(data[3 * i + 3 * myWidth * j + 1])*1.0f;
+    float b = int(data[3 * i + 3 * myWidth * j + 2])*1.0f;
     return vec3(r, g, b);
 }
