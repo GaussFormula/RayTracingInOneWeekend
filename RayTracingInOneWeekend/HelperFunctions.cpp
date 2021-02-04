@@ -29,7 +29,7 @@ vec3 RandomReflection(const HitRecord& hitRecord)
     vec3 result;
     do 
     {
-        result = 2 * vec3(rand() * 1.0f / RAND_MAX, rand() * 1.0f / RAND_MAX, rand() * 1.0f / RAND_MAX);
+        result = 2 * vec3(Random01(), Random01(), Random01());
         result = result - vec3(1.0f, 1.0f, 1.0f);
     } while (result* hitRecord.normal < 0);
     return result;

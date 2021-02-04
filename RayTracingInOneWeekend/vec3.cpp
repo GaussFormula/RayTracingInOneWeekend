@@ -1,4 +1,5 @@
 #include "vec3.h"
+#include "HelperFunctions.h"
 
 #include <assert.h>
 #include <cmath>
@@ -100,7 +101,7 @@ vec3 vec3::GetRandomVecInUnitDisk()
     vec3 p;
     do 
     {
-        p = 2.0f * vec3(rand() * 1.0f / RAND_MAX, rand() * 1.0f / RAND_MAX, 0) - vec3(1.0f, 1.0f, 0.0f);
+        p = 2.0f * vec3(Random01(), Random01(), 0) - vec3(1.0f, 1.0f, 0.0f);
     } while (p * p >= 1.0f);
     return p;
 }
