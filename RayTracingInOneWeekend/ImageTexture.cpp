@@ -2,8 +2,8 @@
 
 vec3 ImageTexture::GetValue(const float& u, const float& v, const vec3& p)const
 {
-    int i = u * myWidth;
-    int j = v * myHeight - 0.001f;
+    int i = int(u * myWidth);
+    int j = int(v * myHeight - 0.001f);
     if (i < 0)
     {
         i = 0;

@@ -12,6 +12,8 @@
 #include "CheckerTexture.h"
 #include "ImageTexture.h"
 #include "XYRectangle.h"
+#include "YZRectangle.h"
+#include "XZRectangle.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -24,7 +26,7 @@ std::shared_ptr<HitableList> GetRandomScene()
         std::make_shared<ConstantTexture>(vec3(0.9f, 0.9f, 0.9f))
         );
     hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, -1000.0f, 0.0f), 1000.0f,
-        std::make_shared<Lambertian>(checker, vec3(1.0f, 1.0f, 1.0f))));
+        std::make_shared<Lambertian>(checker)));
     for (int a = -3; a < 3; ++a)
     {
         for (int b = -3; b < 3; ++b)
@@ -44,8 +46,7 @@ std::shared_ptr<HitableList> GetRandomScene()
                             std::make_shared<Lambertian>
                             (
                                 std::make_shared<ConstantTexture>
-                                (vec3(Random01() * Random01(), Random01() * Random01(), Random01() * Random01())),
-                                vec3(1.0f, 1.0f, 1.0f)
+                                (vec3(Random01() * Random01(), Random01() * Random01(), Random01() * Random01()))
                                 )
                             )
                     );
@@ -69,7 +70,7 @@ std::shared_ptr<HitableList> GetRandomScene()
     }
 
     hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, 1.0f, 0.0f), 1.0f, std::make_shared<Dielectric>(0.5f)));
-    hitableList->push_back(std::make_shared<Sphere>(vec3(-4.0f, 1.0f, 0.0f), 1.0f, std::make_shared<Lambertian>(std::make_shared<ConstantTexture>(vec3(0.4f, 0.2f, 0.1f)), vec3(1.0f, 1.0f, 1.0f))));
+    hitableList->push_back(std::make_shared<Sphere>(vec3(-4.0f, 1.0f, 0.0f), 1.0f, std::make_shared<Lambertian>(std::make_shared<ConstantTexture>(vec3(0.4f, 0.2f, 0.1f)))));
     hitableList->push_back(std::make_shared<Sphere>(vec3(4.0f, 1.0f, 0.0f), 1.0f, std::make_shared<Metal>(vec3(0.7f, 0.6f, 0.5f))));
     return hitableList;
 }
@@ -94,10 +95,9 @@ std::shared_ptr<HitableList> GetFixedScene()
 
     std::shared_ptr<ImageTexture> image = std::make_shared<ImageTexture>(tex_data[0], nx[0], ny[0]);
 
-    std::shared_ptr<Metal> metal = std::make_shared<Metal>(vec3(0.8f, 0.8f, 0.8f));
-    std::shared_ptr<Lambertian> lambertian = std::make_shared<Lambertian>(
-        image, vec3(0.3f, 0.3f, 0.3f));
-    std::shared_ptr<Lambertian> lambertian2 = std::make_shared<Lambertian>(checker, vec3(0.8f, 0.8f, 0.8f));
+    std::shared_ptr<Metal> metal = std::make_shared<Metal>(vec3(1.0f, 1.0f, 1.0f));
+    std::shared_ptr<Lambertian> lambertian = std::make_shared<Lambertian>(image);
+    std::shared_ptr<Lambertian> lambertian2 = std::make_shared<Lambertian>(checker);
     std::shared_ptr<Dielectric> dielectric = std::make_shared<Dielectric>(1.5f);
     std::shared_ptr<Dielectric> dielectric2 = std::make_shared<Dielectric>(1.51f);
     std::shared_ptr<DiffuseLight> diffuseLight = std::make_shared<DiffuseLight>(
@@ -110,14 +110,25 @@ std::shared_ptr<HitableList> GetFixedScene()
         = std::make_shared<DiffuseLight>
         (image);
     
+    std::shared_ptr<Lambertian> red = std::make_shared<Lambertian>(std::make_shared<ConstantTexture>(vec3(0.65f, 0.05f, 0.05f) * 255.0f));
+    std::shared_ptr<Lambertian> white = std::make_shared<Lambertian>(std::make_shared<ConstantTexture>(vec3(0.73f, 0.73f, 0.73f) * 255.0f));
+    std::shared_ptr<Lambertian> green = std::make_shared<Lambertian>(std::make_shared<ConstantTexture>(vec3(0.12f, 0.45f, 0.15f) * 255.0f));
 
-    hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, 1.0f, 0.0f), 1.0f, lambertian));
+    //hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, 1.0f, 0.0f), 1.0f, lambertian));
     //hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, 0.48f, 1.52f), 0.5f, lambertian));
     //hitableList->push_back(std::make_shared<Sphere>(vec3(2.0f, 0.0f, 0.0f), 0.5f, diffuseLight));
     //hitableList->push_back(std::make_shared<Sphere>(vec3(0.51f, 0.0f, -1.0f), -0.45f, dielectric));
-    hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, -100.5f, -1.0f), 100.0f, lambertian2));
-    hitableList->push_back(std::make_shared<XYRectangle>(-2.0f, 3.0f, 0.0f, 1.5f, 1.3f, poster));
-    hitableList->push_back(std::make_shared<XYRectangle>(-2.0f, 3.0f, 0.0f, 1.5f, -1.3f, poster));
+    //hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, -100.5f, -1.0f), 100.0f, lambertian2));
+    //hitableList->push_back(std::make_shared<XYRectangle>(-2.0f, 3.0f, 0.0f, 1.5f, 1.3f, poster));
+    //hitableList->push_back(std::make_shared<XYRectangle>(-2.0f, 3.0f, 0.0f, 1.5f, -1.3f, poster));
+    hitableList->push_back(std::make_shared<XYRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, red));
+    hitableList->push_back(std::make_shared<XYRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, 2.0f, red));
+    hitableList->push_back(std::make_shared<XZRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, white));
+    hitableList->push_back(std::make_shared<XZRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, 2.2f, red));
+    hitableList->push_back(std::make_shared<YZRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, green));
+    hitableList->push_back(std::make_shared<XZRectangle>(-1.5f, 1.5f, -1.5f, 1.5f, 1.95f, diffuseLight));
+    hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, 0.0f, 0.0f), 0.5f, lambertian));
+    hitableList->push_back(std::make_shared<Sphere>(vec3(0.5f, -1.0f, 0.0f), 0.5f, metal));
 
     return hitableList;
 }
