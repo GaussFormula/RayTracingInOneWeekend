@@ -79,3 +79,18 @@ void GetSphereUV(const vec3& hitPoint, const Sphere& sphere, float& u, float& v)
     u = 1 - (phi + M_PI) / (2 * M_PI);
     // phi from -pi to pi.
 }
+
+void SelfClamp(vec3& v)
+{
+    for (int i = 0; i < 3; ++i)
+    {
+        if (v[i] < 0.0f)
+        {
+            v[i] = 0.0f;
+        }
+        if (v[i] > 255.0f)
+        {
+            v[i] = 255.0f;
+        }
+    }
+}

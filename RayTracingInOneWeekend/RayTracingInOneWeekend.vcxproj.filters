@@ -176,5 +176,8 @@
     <ClInclude Include="XZRectangle.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="FlipNormals.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

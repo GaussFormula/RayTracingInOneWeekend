@@ -14,6 +14,7 @@
 #include "XYRectangle.h"
 #include "YZRectangle.h"
 #include "XZRectangle.h"
+#include "FlipNormals.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -101,7 +102,7 @@ std::shared_ptr<HitableList> GetFixedScene()
     std::shared_ptr<Dielectric> dielectric = std::make_shared<Dielectric>(1.5f);
     std::shared_ptr<Dielectric> dielectric2 = std::make_shared<Dielectric>(1.51f);
     std::shared_ptr<DiffuseLight> diffuseLight = std::make_shared<DiffuseLight>(
-        std::make_shared<ConstantTexture>(vec3(255.0f, 255.0f, 255.0f)));
+        std::make_shared<ConstantTexture>(vec3(255.0f, 255.0f, 255.0f) * 3.0f));
 
     std::shared_ptr<DiffuseLight> poster = std::make_shared<DiffuseLight>(
         std::make_shared<ImageTexture>(tex_data[1], nx[1], ny[1]));
@@ -121,12 +122,12 @@ std::shared_ptr<HitableList> GetFixedScene()
     //hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, -100.5f, -1.0f), 100.0f, lambertian2));
     //hitableList->push_back(std::make_shared<XYRectangle>(-2.0f, 3.0f, 0.0f, 1.5f, 1.3f, poster));
     //hitableList->push_back(std::make_shared<XYRectangle>(-2.0f, 3.0f, 0.0f, 1.5f, -1.3f, poster));
-    hitableList->push_back(std::make_shared<XYRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, red));
-    hitableList->push_back(std::make_shared<XYRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, 2.0f, red));
+    hitableList->push_back(std::make_shared<FlipNormalRectangle>(std::make_shared<XYRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, 2.0f, green)));
+    hitableList->push_back(std::make_shared<FlipNormalRectangle>(std::make_shared<XZRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, 2.0f, white)));
     hitableList->push_back(std::make_shared<XZRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, white));
-    hitableList->push_back(std::make_shared<XZRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, 2.2f, red));
-    hitableList->push_back(std::make_shared<YZRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, green));
-    hitableList->push_back(std::make_shared<XZRectangle>(-1.5f, 1.5f, -1.5f, 1.5f, 1.95f, diffuseLight));
+    hitableList->push_back(std::make_shared<XYRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, red));
+    hitableList->push_back(std::make_shared<YZRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, white));
+    hitableList->push_back(std::make_shared<XZRectangle>(-1.5f, 1.5f, -1.5f, 1.4f, 1.9f, diffuseLight));
     hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, 0.0f, 0.0f), 0.5f, lambertian));
     hitableList->push_back(std::make_shared<Sphere>(vec3(0.5f, -1.0f, 0.0f), 0.5f, metal));
 

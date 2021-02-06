@@ -10,6 +10,10 @@
 #include <cstdlib>
 
 #include <thread>
+#include <mutex>
+
+std::mutex oneMutex;
+int currentFinisedLinesAmount = 0;
 
 
 void Rendering(int startRowNumber, 
@@ -18,6 +22,7 @@ void Rendering(int startRowNumber,
     int endColumnNumber,
     int totalWidth,
     int totalHeight,
+    int myThreadOrderNumber,
     std::string& outputBuffer,
     std::vector<char>& outputBuffer2,
     const std::shared_ptr<BVHList>& bvhList,
@@ -27,9 +32,10 @@ void Rendering(int startRowNumber,
     {
         endRowNumber = totalHeight;
     }
-    const int sample_times = 5;
+    const int sample_times = 100;
     const int bounce_times = 50;
     const float inv_sample_times = 1.0f / sample_times;
+    //const int totalRowsCount = endRowNumber - startRowNumber + 1;
     for (int j = endRowNumber-1; j >= startRowNumber; --j)
     {
         for (int i = startColumnNumber; i < endColumnNumber; ++i)
@@ -43,6 +49,7 @@ void Rendering(int startRowNumber,
                 col += bvhList->Hit(r, 0.001f, std::numeric_limits<float>::max(), bounce_times);
             }
             col *= inv_sample_times;
+            SelfClamp(col);
 
             //col *= 255.99f;
             std::string colorStr;
@@ -54,7 +61,17 @@ void Rendering(int startRowNumber,
             outputBuffer += colorStr;
         }
         outputBuffer += std::string("\n");
+        oneMutex.lock();
+        currentFinisedLinesAmount += 1;
+        std::cout << "Program has finished "
+            << (float)currentFinisedLinesAmount / totalHeight * 100.0f << "%" << "\n";
+        std::cout.flush();
+        oneMutex.unlock();
     }
+    oneMutex.lock();
+    std::cout << "Thread " << myThreadOrderNumber << " completed." << "\n";
+    std::cout.flush();
+    oneMutex.unlock();
 }
 
 int main()
@@ -65,7 +82,7 @@ int main()
     PPMFileP3 picture(width, height);
     PPMFileP6 picture2(width, height);
 
-    vec3 lookFrom(4.0f, 1.0f, 0.0f);
+    vec3 lookFrom(4.0f, 0.5f, 0.0f);
     vec3 lookAt(0.0f, 0.0f, 0.0f);
     vec3 up(0.0f, 1.0f, 0.0f);
     float fov = 90.0f;
@@ -104,6 +121,7 @@ int main()
                 width,
                 width,
                 height,
+                i+1,
                 std::ref(outputBuffer[i]),
                 std::ref(outputBuffer2[i]),
                 std::ref(bvhList),
