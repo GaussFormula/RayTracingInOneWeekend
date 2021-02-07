@@ -15,6 +15,7 @@
 #include "YZRectangle.h"
 #include "XZRectangle.h"
 #include "FlipNormals.h"
+#include "Box.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -113,6 +114,7 @@ std::shared_ptr<HitableList> GetFixedScene()
     
     std::shared_ptr<Lambertian> red = std::make_shared<Lambertian>(std::make_shared<ConstantTexture>(vec3(0.65f, 0.05f, 0.05f) * 255.0f));
     std::shared_ptr<Lambertian> white = std::make_shared<Lambertian>(std::make_shared<ConstantTexture>(vec3(0.73f, 0.73f, 0.73f) * 255.0f));
+    std::shared_ptr<Lambertian> white2 = std::make_shared<Lambertian>(std::make_shared<ConstantTexture>(vec3(0.83f, 0.83f, 0.83f) * 255.0f));
     std::shared_ptr<Lambertian> green = std::make_shared<Lambertian>(std::make_shared<ConstantTexture>(vec3(0.12f, 0.45f, 0.15f) * 255.0f));
 
     //hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, 1.0f, 0.0f), 1.0f, lambertian));
@@ -128,8 +130,19 @@ std::shared_ptr<HitableList> GetFixedScene()
     hitableList->push_back(std::make_shared<XYRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, red));
     hitableList->push_back(std::make_shared<YZRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, white));
     hitableList->push_back(std::make_shared<XZRectangle>(-1.5f, 1.5f, -1.5f, 1.4f, 1.9f, diffuseLight));
-    hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, 0.0f, 0.0f), 0.5f, lambertian));
-    hitableList->push_back(std::make_shared<Sphere>(vec3(0.5f, -1.0f, 0.0f), 0.5f, metal));
+    //CreateBox(vec3(-1.0f, -2.0f, -1.5f), vec3(1.0f, 1.0f, 1.0f), hitableList, white2);
+    hitableList->push_back(std::make_shared<Box>(vec3(-1.5f, -2.0f, 0.0f), vec3(0.0f, 1.0f, 1.6f), white2));
+    hitableList->push_back(std::make_shared<Box>(vec3(-1.6f, -2.0f, -1.6f), vec3(1.1f, 1.2f, -0.1f),white2));
 
     return hitableList;
+}
+
+void CreateBox(const vec3& p0, const vec3& p1,const std::shared_ptr<HitableList>& hitableList, const std::shared_ptr<Material>& material)
+{
+    hitableList->push_back(std::make_shared<XYRectangle>(p0.X(), p1.X(), p0.Y(), p1.Y(), p1.Z(), material));
+    hitableList->push_back(std::make_shared<FlipNormalRectangle>(std::make_shared<XYRectangle>(p0.X(), p1.X(), p0.Y(), p0.Y(), p0.Z(), material)));
+    hitableList->push_back(std::make_shared<XZRectangle>(p0.X(), p1.X(), p0.Z(), p1.Z(), p0.Y(), material));
+    hitableList->push_back(std::make_shared<FlipNormalRectangle>(std::make_shared<XZRectangle>(p0.X(), p1.X(), p0.Z(), p1.Z(), p1.Y(), material)));
+    hitableList->push_back(std::make_shared<FlipNormalRectangle>(std::make_shared<YZRectangle>(p0.Y(), p1.Y(), p0.Z(), p1.Z(), p1.X(), material)));
+    hitableList->push_back(std::make_shared<FlipNormalRectangle>(std::make_shared<YZRectangle>(p0.Y(), p1.Y(), p0.Z(), p1.Z(), p0.X(), material)));
 }

@@ -6,11 +6,11 @@
 class HitableList
 {
 public:
-    HitableList(){}
+    HitableList() {}
 
     void push_back(const std::shared_ptr<Hitable>& object);
 
-    vec3 Hit(const Ray& ray, const float& t_min, const float& t_max, const int& reflectionLimit)const;
+    bool Hit(const Ray& ray, const float& t_min, const float& t_max, HitRecord& hitRecord)const;
 
     size_t size()const
     {

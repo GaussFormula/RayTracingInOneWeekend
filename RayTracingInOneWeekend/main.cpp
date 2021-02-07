@@ -32,7 +32,7 @@ void Rendering(int startRowNumber,
     {
         endRowNumber = totalHeight;
     }
-    const int sample_times = 100;
+    const int sample_times = 5;
     const int bounce_times = 50;
     const float inv_sample_times = 1.0f / sample_times;
     //const int totalRowsCount = endRowNumber - startRowNumber + 1;
@@ -82,7 +82,7 @@ int main()
     PPMFileP3 picture(width, height);
     PPMFileP6 picture2(width, height);
 
-    vec3 lookFrom(4.0f, 0.5f, 0.0f);
+    vec3 lookFrom(4.0f, 0.0f, 0.0f);
     vec3 lookAt(0.0f, 0.0f, 0.0f);
     vec3 up(0.0f, 1.0f, 0.0f);
     float fov = 90.0f;
