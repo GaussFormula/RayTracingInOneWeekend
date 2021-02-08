@@ -158,6 +158,7 @@
     <ClCompile Include="MovableSphere.cpp" />
     <ClCompile Include="PPMFileP3.cpp" />
     <ClCompile Include="PPMFileP6.cpp" />
+    <ClCompile Include="RotatedObject.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="TestUnits.cpp" />
     <ClCompile Include="vec3.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="PPMFileP3.h" />
     <ClInclude Include="PPMFileP6.h" />
     <ClInclude Include="Ray.h" />
+    <ClInclude Include="RotatedObject.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="TestUnits.h" />

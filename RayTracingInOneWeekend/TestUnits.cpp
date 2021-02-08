@@ -16,6 +16,7 @@
 #include "XZRectangle.h"
 #include "FlipNormals.h"
 #include "Box.h"
+#include "RotatedObject.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -103,7 +104,7 @@ std::shared_ptr<HitableList> GetFixedScene()
     std::shared_ptr<Dielectric> dielectric = std::make_shared<Dielectric>(1.5f);
     std::shared_ptr<Dielectric> dielectric2 = std::make_shared<Dielectric>(1.51f);
     std::shared_ptr<DiffuseLight> diffuseLight = std::make_shared<DiffuseLight>(
-        std::make_shared<ConstantTexture>(vec3(255.0f, 255.0f, 255.0f) * 3.0f));
+        std::make_shared<ConstantTexture>(vec3(255.0f, 235.0f, 205.0f) * 4.0f));
 
     std::shared_ptr<DiffuseLight> poster = std::make_shared<DiffuseLight>(
         std::make_shared<ImageTexture>(tex_data[1], nx[1], ny[1]));
@@ -129,10 +130,11 @@ std::shared_ptr<HitableList> GetFixedScene()
     hitableList->push_back(std::make_shared<XZRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, white));
     hitableList->push_back(std::make_shared<XYRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, red));
     hitableList->push_back(std::make_shared<YZRectangle>(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, white));
-    hitableList->push_back(std::make_shared<XZRectangle>(-1.5f, 1.5f, -1.5f, 1.4f, 1.9f, diffuseLight));
+    hitableList->push_back(std::make_shared<XZRectangle>(-1.0f, 1.0f, -1.0f, 1.0f, 1.9f, diffuseLight));
     //CreateBox(vec3(-1.0f, -2.0f, -1.5f), vec3(1.0f, 1.0f, 1.0f), hitableList, white2);
-    hitableList->push_back(std::make_shared<Box>(vec3(-1.5f, -2.0f, 0.0f), vec3(0.0f, 1.0f, 1.6f), white2));
-    hitableList->push_back(std::make_shared<Box>(vec3(-1.6f, -2.0f, -1.6f), vec3(1.1f, 1.2f, -0.1f),white2));
+    hitableList->push_back(std::make_shared<YAxisRotatedObject>(std::make_shared<Box>(vec3(-1.5f, -2.0f, 0.0f), vec3(0.0f, 0.0f, 1.6f), white2), -18.0f));
+    hitableList->push_back(std::make_shared<YAxisRotatedObject>(std::make_shared<Box>(vec3(-1.6f, -2.0f, -1.6f), vec3(1.1f, -0.5f, 0.5f), white2), 45.0f));
+    //hitableList->push_back(std::make_shared<Box>(vec3(-1.6f, -2.0f, -1.6f), vec3(1.1f, 1.2f, -0.1f),white2));
 
     return hitableList;
 }
