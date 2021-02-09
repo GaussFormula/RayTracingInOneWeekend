@@ -32,7 +32,7 @@ void Rendering(int startRowNumber,
     {
         endRowNumber = totalHeight;
     }
-    const int sample_times = 60;
+    const int sample_times = 10;
     const int bounce_times = 100;
     const float inv_sample_times = 1.0f / sample_times;
     //const int totalRowsCount = endRowNumber - startRowNumber + 1;
