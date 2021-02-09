@@ -30,7 +30,7 @@ public:
         }
     }
 
-    void AddPixelsToBuffer(const std::vector<char>& pixels)
+    void AddPixelsToBuffer(const std::vector<unsigned char>& pixels)
     {
         myDataBuffer.insert(myDataBuffer.end(), pixels.begin(), pixels.end());
     }

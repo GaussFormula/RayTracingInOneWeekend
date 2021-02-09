@@ -93,6 +93,9 @@
     <ClCompile Include="RotatedObject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Denoise.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PPMFile.h">
@@ -189,6 +192,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="RotatedObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Denoise.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

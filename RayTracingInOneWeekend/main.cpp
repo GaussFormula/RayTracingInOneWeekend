@@ -5,6 +5,7 @@
 #include "BVHList.h"
 #include "ImageTexture.h"
 #include "HelperFunctions.h"
+#include "Denoise.h"
 
 #include <ctime>
 #include <cstdlib>
@@ -24,7 +25,7 @@ void Rendering(int startRowNumber,
     int totalHeight,
     int myThreadOrderNumber,
     std::string& outputBuffer,
-    std::vector<char>& outputBuffer2,
+    std::vector<unsigned char>& outputBuffer2,
     const std::shared_ptr<BVHList>& bvhList,
     const Camera& camera)
 {
@@ -32,7 +33,7 @@ void Rendering(int startRowNumber,
     {
         endRowNumber = totalHeight;
     }
-    const int sample_times = 10;
+    const int sample_times = 30;
     const int bounce_times = 100;
     const float inv_sample_times = 1.0f / sample_times;
     //const int totalRowsCount = endRowNumber - startRowNumber + 1;
@@ -56,7 +57,7 @@ void Rendering(int startRowNumber,
             for (int i = 0; i < 3; ++i)
             {
                 colorStr += std::to_string((int)col[i]) + std::string(" ");
-                outputBuffer2.push_back((char)col[i]);
+                outputBuffer2.push_back((unsigned char)col[i]);
             }
             outputBuffer += colorStr;
         }
@@ -102,10 +103,14 @@ int main()
     //objectList.ReferenceCount();
 
     std::vector<std::thread> threadArray;
+    std::vector<std::thread> denoiseThreadArray;
     std::vector<std::string> outputBuffer;
-    std::vector<std::vector<char>> outputBuffer2;
+    std::vector<std::vector<unsigned char>> outputBuffer2;
+    std::vector<unsigned char> denoiseInputBuffer;
+    std::vector<unsigned char> denoiseOutputBuffer;
     outputBuffer.resize(thread_number);
     outputBuffer2.resize(thread_number);
+    denoiseOutputBuffer.resize(width * height * 3);
 
     int length = height / thread_number + 1;
     int real_thread_number = 0;
@@ -138,11 +143,39 @@ int main()
         }
     }
 
+
     for (int i = real_thread_number-1; i >= 0; --i)
     {
         picture.AddPixelsToBuffer(outputBuffer[i]);
-        picture2.AddPixelsToBuffer(outputBuffer2[i]);
+        //picture2.AddPixelsToBuffer(outputBuffer2[i]);
+        denoiseInputBuffer.insert(denoiseInputBuffer.end(), outputBuffer2[i].begin(), outputBuffer2[i].end());
+    }    
+    
+    
+    real_thread_number = 0;
+
+
+    for (int i = 0; i < thread_number && i * length < height; ++i, ++real_thread_number)
+    {
+        denoiseThreadArray.push_back(
+            std::thread(BoxFilterDenoising,
+                std::ref(denoiseInputBuffer),
+                std::ref(denoiseOutputBuffer),
+                i * length, (i + 1) * length,
+                0, width,
+                width, height
+            )
+        );
     }
+
+    for (int i = 0; i < real_thread_number; ++i)
+    {
+        if (denoiseThreadArray[i].joinable())
+        {
+            denoiseThreadArray[i].join();
+        }
+    }
+    picture2.AddPixelsToBuffer(denoiseOutputBuffer);
     
     picture.OutputAsFile("1.ppm");
     picture2.OutputAsFile("2.ppm");
