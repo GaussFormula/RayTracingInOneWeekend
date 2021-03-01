@@ -105,3 +105,13 @@ vec3 vec3::GetRandomVecInUnitDisk()
     } while (p * p >= 1.0f);
     return p;
 }
+
+vec3 vec3::GetRandomVecInUnitSphere()
+{
+    vec3 p;
+    do
+    {
+        p = 2.0f * vec3(Random01(), Random01(), Random01()) - vec3(1.0f, 1.0f, 1.0f);
+    } while (p * p >= 1.0f);
+    return p;
+}

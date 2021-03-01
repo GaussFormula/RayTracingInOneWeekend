@@ -66,6 +66,8 @@ public:
 
     static vec3 GetRandomVecInUnitDisk();
 
+    static vec3 GetRandomVecInUnitSphere();
+
 private:
     float data[3] = {};
 };

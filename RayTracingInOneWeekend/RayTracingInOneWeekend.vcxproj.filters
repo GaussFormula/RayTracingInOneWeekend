@@ -96,6 +96,9 @@
     <ClCompile Include="Denoise.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ConstantMedium.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PPMFile.h">
@@ -195,6 +198,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Denoise.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantMedium.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

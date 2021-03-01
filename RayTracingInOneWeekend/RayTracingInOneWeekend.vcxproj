@@ -145,6 +145,7 @@
     <ClCompile Include="BVHNode.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CheckerTexture.cpp" />
+    <ClCompile Include="ConstantMedium.cpp" />
     <ClCompile Include="ConstantTexture.cpp" />
     <ClCompile Include="Denoise.cpp" />
     <ClCompile Include="Dielectric.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="BVHNode.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CheckerTexture.h" />
+    <ClInclude Include="ConstantMedium.h" />
     <ClInclude Include="ConstantTexture.h" />
     <ClInclude Include="Denoise.h" />
     <ClInclude Include="Dielectric.h" />

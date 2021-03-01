@@ -17,6 +17,7 @@
 #include "FlipNormals.h"
 #include "Box.h"
 #include "RotatedObject.h"
+#include "ConstantMedium.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -104,7 +105,7 @@ std::shared_ptr<HitableList> GetFixedScene()
     std::shared_ptr<Dielectric> dielectric = std::make_shared<Dielectric>(1.5f);
     std::shared_ptr<Dielectric> dielectric2 = std::make_shared<Dielectric>(1.51f);
     std::shared_ptr<DiffuseLight> diffuseLight = std::make_shared<DiffuseLight>(
-        std::make_shared<ConstantTexture>(vec3(255.0f, 235.0f, 205.0f) * 10.0f));
+        std::make_shared<ConstantTexture>(vec3(255.0f, 235.0f, 205.0f) * 2.0f));
 
     std::shared_ptr<DiffuseLight> poster = std::make_shared<DiffuseLight>(
         std::make_shared<ImageTexture>(tex_data[1], nx[1], ny[1]));
@@ -118,6 +119,12 @@ std::shared_ptr<HitableList> GetFixedScene()
     std::shared_ptr<Lambertian> white2 = std::make_shared<Lambertian>(std::make_shared<ConstantTexture>(vec3(0.83f, 0.83f, 0.83f) * 255.0f));
     std::shared_ptr<Lambertian> green = std::make_shared<Lambertian>(std::make_shared<ConstantTexture>(vec3(0.12f, 0.45f, 0.15f) * 255.0f));
 
+    // Hitable
+    std::shared_ptr<Box> box = std::make_shared<Box>(vec3(-1.0f, -2.0f, 0.2f), vec3(0.0f, -0.8f, 1.2f), green);
+    std::shared_ptr<ConstantMedium> whiteSmoke = std::make_shared<ConstantMedium>(box,0.01f, std::make_shared<ConstantTexture>(vec3(1.0f, 1.0f, 1.0f) * 255.0f));
+    
+    hitableList->push_back(whiteSmoke);
+    
     //hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, 1.0f, 0.0f), 1.0f, lambertian));
     //hitableList->push_back(std::make_shared<Sphere>(vec3(0.0f, 0.48f, 1.52f), 0.5f, lambertian));
     //hitableList->push_back(std::make_shared<Sphere>(vec3(2.0f, 0.0f, 0.0f), 0.5f, diffuseLight));
@@ -134,8 +141,8 @@ std::shared_ptr<HitableList> GetFixedScene()
     //hitableList->push_back(std::make_shared<YZRectangle>(-2.0f, -1.0f, 1.0f, 1.5f, 1.8f, diffuseLight));
     //hitableList->push_back(std::make_shared<FlipNormalRectangle>(std::make_shared<XYRectangle>(-1.9f, 1.0f, -2.0f, -1.0f, 1.5f, red)));
     //CreateBox(vec3(-1.0f, -2.0f, -1.5f), vec3(1.0f, 1.0f, 1.0f), hitableList, white2);
-    hitableList->push_back(std::make_shared<YAxisRotatedObject>(std::make_shared<Box>(vec3(-1.0f, -2.0f, 0.2f), vec3(0.0f, -0.8f, 1.2f), white2), 30.0f));
-    hitableList->push_back(std::make_shared<YAxisRotatedObject>(std::make_shared<Box>(vec3(-0.5f, -2.0f, -1.6f), vec3(0.5f, -1.0f, -1.0f), white2), 45.0f));
+    //hitableList->push_back(std::make_shared<YAxisRotatedObject>(std::make_shared<Box>(vec3(-1.0f, -2.0f, 0.2f), vec3(0.0f, -0.8f, 1.2f), white2), 30.0f));
+    //hitableList->push_back(std::make_shared<YAxisRotatedObject>(std::make_shared<Box>(vec3(-0.5f, -2.0f, -1.6f), vec3(0.5f, -1.0f, -1.0f), white2), 45.0f));
     //hitableList->push_back(std::make_shared<Box>(vec3(-1.8f, -2.0f, 1.5f), vec3(1.0f, 0.0f, 1.9f), red));
 
     return hitableList;
